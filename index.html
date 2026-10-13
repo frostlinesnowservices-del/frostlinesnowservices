@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Frostline Snow Services & Fall Cleanup | Edmonton</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- HEADER -->
+  <header class="bg-slate-900 text-white sticky top-0 z-30 shadow-md">
+    <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center text-white text-xl font-black shadow-inner">❄️</div>
+        <div>
+          <span class="text-base font-extrabold tracking-tight block text-white leading-tight">FROSTLINE</span>
+          <span class="text-[10px] font-semibold text-sky-400 uppercase tracking-wider block">Snow & Property Services</span>
+        </div>
+      </div>
+      <span class="text-xs font-semibold px-2.5 py-1 bg-slate-800 text-sky-300 rounded-full border border-slate-700">Edmonton & Area</span>
+    </div>
+  </header>
+
+  <!-- STEP PROGRESS INDICATOR -->
+  <div class="bg-white border-b border-slate-200 sticky top-[57px] z-20 shadow-sm">
+    <div class="max-w-md mx-auto px-4 py-2 flex items-center justify-between text-xs font-bold text-slate-700">
+      <span id="stepTitle">Step 1: Contact Info</span>
+      <div class="flex gap-1.5">
+        <div id="dot1" class="w-2.5 h-2.5 rounded-full bg-sky-600"></div>
+        <div id="dot2" class="w-2.5 h-2.5 rounded-full bg-slate-200"></div>
+        <div id="dot3" class="w-2.5 h-2.5 rounded-full bg-slate-200"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="max-w-md mx-auto px-4 py-6 w-full flex-grow mb-24">
+
+    <!-- STEP 1: EMAIL & ADDRESS -->
+    <div id="step1" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
+      <div>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Get Your Instant Quote</h2>
+        <p class="text-xs text-slate-500">Enter your email and Edmonton property address to calculate monthly pricing.</p>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Email Address</label>
+        <input type="email" id="inputEmail" placeholder="alex.smith@gmail.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Edmonton Street Address</label>
+        <input type="text" id="inputAddress" placeholder="e.g. 2124 Haddow Dr NW" value="2124 Haddow Dr NW" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+      </div>
+
+      <button onclick="goToStep2()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-sm flex items-center justify-center gap-2">
+        <span>Select Service</span> ➔
+      </button>
+    </div>
+
+    <!-- STEP 2: SERVICE TYPE -->
+    <div id="step2" class="space-y-4 hidden">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Choose Service Type</h2>
+
+        <!-- SNOW REMOVAL OPTION -->
+        <div onclick="selectService('snow')" id="cardSnow" class="border-2 border-sky-600 bg-sky-50/70 rounded-xl p-4 cursor-pointer transition">
+          <div class="flex items-start gap-3">
+            <div class="text-3xl">❄️</div>
+            <div class="flex-grow">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-slate-900 text-sm">Winter Snow Removal</h3>
+                <span class="text-[10px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-bold">Monthly Contract</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1">Automatic clearing post-snowfall. Driveways, walkways, and ice melt application.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FALL CLEANUP OPTION -->
+        <div onclick="selectService('fall')" id="cardFall" class="border-2 border-slate-200 bg-white hover:border-amber-400 rounded-xl p-4 cursor-pointer transition">
+          <div class="flex items-start gap-3">
+            <div class="text-3xl">🍂</div>
+            <div class="flex-grow">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-slate-900 text-sm">Fall Leaf & Yard Cleanup</h3>
+                <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">One-Time Service</span>
+              </div>
+              <p class="text-xs text-slate-600 mt-1">Leaf raking, gutter blowout, final lawn trim, and autumn yard prep.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-2 pt-2">
+          <button onclick="goToStep1()" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3 rounded-xl text-xs">Back</button>
+          <button onclick="goToStep3()" class="w-2/3 bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-xs transition">Configure Package ➔</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: CONFIGURE PACKAGES -->
+    <div id="step3" class="space-y-4 hidden">
+      
+      <!-- SNOW PACKAGES -->
+      <div id="panelSnow" class="space-y-3">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+          <h3 class="font-bold text-slate-900 text-sm">Select Monthly Snow Tier</h3>
+
+          <!-- STANDARD ($180) -->
+          <label onclick="setSnowTier('standard', 180)" class="block border-2 rounded-xl p-3 cursor-pointer border-slate-200 hover:border-sky-400 transition" id="tierStandard">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-slate-900 text-sm">Standard</span>
+              <span class="text-base font-extrabold text-slate-900">$180 <span class="text-xs text-slate-500 font-normal">/ mo</span></span>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">Cleared within 24 hrs post-storm. Single driveway + front steps & walk.</p>
+          </label>
+
+          <!-- PREMIUM ($230) -->
+          <label onclick="setSnowTier('premium', 230)" class="block border-2 border-sky-600 bg-sky-50/70 rounded-xl p-3 cursor-pointer transition" id="tierPremium">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-slate-900 text-sm">Premium (Recommended)</span>
+              <span class="text-base font-extrabold text-slate-900">$230 <span class="text-xs text-slate-500 font-normal">/ mo</span></span>
+            </div>
+            <p class="text-xs text-slate-600 mt-0.5">Rapid 12-hr priority dispatch + corner city sidewalk & pet-safe ice melt included.</p>
+          </label>
+
+          <!-- EXPRESS VIP ($290) -->
+          <label onclick="setSnowTier('express', 290)" class="block border-2 rounded-xl p-3 cursor-pointer border-slate-200 hover:border-sky-400 transition" id="tierExpress">
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-slate-900 text-sm">Express VIP</span>
+              <span class="text-base font-extrabold text-slate-900">$290 <span class="text-xs text-slate-500 font-normal">/ mo</span></span>
+            </div>
+            <p class="text-xs text-slate-500 mt-0.5">First-in-queue clearance (&lt; 6 hrs) + unlimited repeat visits during multi-day storms.</p>
+          </label>
+        </div>
+      </div>
+
+      <!-- FALL CLEANUP PACKAGES -->
+      <div id="panelFall" class="space-y-3 hidden">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
+          <h3 class="font-bold text-slate-900 text-sm">Select Fall Cleanup Options</h3>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+              <input type="checkbox" id="fallLeaves" checked onchange="calcPrice()" class="w-4 h-4 text-amber-600 rounded">
+              <span class="font-semibold text-slate-800">Leaf Raking & Yard Bagging ($140)</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+              <input type="checkbox" id="fallGutters" checked onchange="calcPrice()" class="w-4 h-4 text-amber-600 rounded">
+              <span class="font-semibold text-slate-800">Eavestrough & Gutter Blowout (+$60)</span>
+            </label>
+            <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+              <input type="checkbox" id="fallLawnCut" onchange="calcPrice()" class="w-4 h-4 text-amber-600 rounded">
+              <span class="font-semibold text-slate-800">Final Autumn Lawn Trim & Mulch (+$45)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button onclick="goToStep2()" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
+        <button onclick="submitOrder()" class="w-2/3 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-md">Complete Booking ➔</button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- STICKY BOTTOM PRICE BAR -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+    <div class="max-w-md mx-auto flex justify-between items-center">
+      <div>
+        <span class="text-[10px] uppercase font-bold text-slate-400 block">Total Rate</span>
+        <span class="text-xl font-black text-slate-900" id="priceDisplay">$230.00</span>
+        <span class="text-xs text-slate-500" id="cycleDisplay">/ month</span>
+      </div>
+      <button onclick="handleBottomClick()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition">
+        <span>Continue</span> ➔
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let selectedSrv = 'snow';
+    let snowPrice = 230;
+
+    function goToStep1() {
+      currentStep = 1;
+      updateUI();
+    }
+
+    function goToStep2() {
+      const email = document.getElementById('inputEmail').value;
+      if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+      }
+      currentStep = 2;
+      updateUI();
+    }
+
+    function goToStep3() {
+      currentStep = 3;
+      updateUI();
+    }
+
+    function updateUI() {
+      document.getElementById('step1').classList.add('hidden');
+      document.getElementById('step2').classList.add('hidden');
+      document.getElementById('step3').classList.add('hidden');
+
+      document.getElementById(`step${currentStep}`).classList.remove('hidden');
+
+      const titles = ['Step 1: Contact Info', 'Step 2: Service Selection', 'Step 3: Package Setup'];
+      document.getElementById('stepTitle').innerText = titles[currentStep - 1];
+
+      document.getElementById('dot1').className = currentStep >= 1 ? 'w-2.5 h-2.5 rounded-full bg-sky-600' : 'w-2.5 h-2.5 rounded-full bg-slate-200';
+      document.getElementById('dot2').className = currentStep >= 2 ? 'w-2.5 h-2.5 rounded-full bg-sky-600' : 'w-2.5 h-2.5 rounded-full bg-slate-200';
+      document.getElementById('dot3').className = currentStep >= 3 ? 'w-2.5 h-2.5 rounded-full bg-sky-600' : 'w-2.5 h-2.5 rounded-full bg-slate-200';
+
+      calcPrice();
+    }
+
+    function selectService(srv) {
+      selectedSrv = srv;
+      if (srv === 'snow') {
+        document.getElementById('cardSnow').className = "border-2 border-sky-600 bg-sky-50/70 rounded-xl p-4 cursor-pointer transition";
+        document.getElementById('cardFall').className = "border-2 border-slate-200 bg-white hover:border-amber-400 rounded-xl p-4 cursor-pointer transition";
+        document.getElementById('panelSnow').classList.remove('hidden');
+        document.getElementById('panelFall').classList.add('hidden');
+      } else {
+        document.getElementById('cardFall').className = "border-2 border-amber-500 bg-amber-50/70 rounded-xl p-4 cursor-pointer transition";
+        document.getElementById('cardSnow').className = "border-2 border-slate-200 bg-white hover:border-sky-400 rounded-xl p-4 cursor-pointer transition";
+        document.getElementById('panelFall').classList.remove('hidden');
+        document.getElementById('panelSnow').classList.add('hidden');
+      }
+      calcPrice();
+    }
+
+    function setSnowTier(tier, price) {
+      snowPrice = price;
+      ['Standard', 'Premium', 'Express'].forEach(t => {
+        document.getElementById(`tier${t}`).className = "block border-2 rounded-xl p-3 cursor-pointer border-slate-200 transition";
+      });
+      document.getElementById(`tier${tier.charAt(0).toUpperCase() + tier.slice(1)}`).className = "block border-2 border-sky-600 bg-sky-50/70 rounded-xl p-3 cursor-pointer transition";
+      calcPrice();
+    }
+
+    function calcPrice() {
+      if (selectedSrv === 'snow') {
+        document.getElementById('priceDisplay').innerText = `$${snowPrice}.00`;
+        document.getElementById('cycleDisplay').innerText = '/ month';
+      } else {
+        let total = 140;
+        if (document.getElementById('fallGutters').checked) total += 60;
+        if (document.getElementById('fallLawnCut').checked) total += 45;
+        document.getElementById('priceDisplay').innerText = `$${total}.00`;
+        document.getElementById('cycleDisplay').innerText = ' total';
+      }
+    }
+
+    function handleBottomClick() {
+      if (currentStep === 1) goToStep2();
+      else if (currentStep === 2) goToStep3();
+      else submitOrder();
+    }
+
+    function submitOrder() {
+      alert(`Booking Request Submitted!\n\nAddress: ${document.getElementById('inputAddress').value}\nTotal Rate: ${document.getElementById('priceDisplay').innerText} ${document.getElementById('cycleDisplay').innerText}\n\nPayment details sent to: ${document.getElementById('inputEmail').value}`);
+    }
+  </script>
+</body>
+</html>
