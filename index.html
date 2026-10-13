@@ -2,276 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Frostline Snow Services & Fall Cleanup | Edmonton</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frostline Snow Services - Portal</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', -apple-system, sans-serif; -webkit-tap-highlight-color: transparent; }
-  </style>
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col justify-between antialiased selection:bg-sky-500 selection:text-white">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
 
-  <!-- HEADER -->
-  <header class="bg-slate-900 text-white sticky top-0 z-30 shadow-md">
-    <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <!-- Logo Display -->
         <div class="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center text-white text-xl font-black shadow-inner">❄️</div>
         <div>
-          <span class="text-base font-extrabold tracking-tight block text-white leading-tight">FROSTLINE</span>
-          <span class="text-[10px] font-semibold text-sky-400 uppercase tracking-wider block">Snow & Property Services</span>
+          <h1 class="font-bold text-slate-900 leading-tight">Frostline</h1>
+          <p class="text-xs text-slate-500">Snow Services Edmonton</p>
         </div>
       </div>
-      <span class="text-xs font-semibold px-2.5 py-1 bg-slate-800 text-sky-300 rounded-full border border-slate-700">Edmonton & Area</span>
+      <a href="tel:7800000000" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition">Need Help?</a>
     </div>
   </header>
 
-  <!-- STEP PROGRESS INDICATOR -->
-  <div class="bg-white border-b border-slate-200 sticky top-[57px] z-20 shadow-sm">
-    <div class="max-w-md mx-auto px-4 py-2 flex items-center justify-between text-xs font-bold text-slate-700">
-      <span id="stepTitle">Step 1: Contact Info</span>
-      <div class="flex gap-1.5">
-        <div id="dot1" class="w-2.5 h-2.5 rounded-full bg-sky-600"></div>
-        <div id="dot2" class="w-2.5 h-2.5 rounded-full bg-slate-200"></div>
-        <div id="dot3" class="w-2.5 h-2.5 rounded-full bg-slate-200"></div>
-      </div>
-    </div>
-  </div>
+  <!-- Main Booking App Container -->
+  <main class="max-w-2xl mx-auto px-4 py-8">
 
-  <!-- MAIN APP CONTAINER -->
-  <main class="max-w-md mx-auto px-4 py-6 w-full flex-grow mb-24">
-
-    <!-- STEP 1: EMAIL & ADDRESS -->
-    <div id="step1" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
-      <div>
-        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Get Your Instant Quote</h2>
-        <p class="text-xs text-slate-500">Enter your email and Edmonton property address to calculate monthly pricing.</p>
+    <!-- STEP 1: EMAIL VERIFICATION -->
+    <div id="step1" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <div class="mb-6">
+        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 1 of 9</span>
+        <h2 class="text-xl font-bold text-slate-900 mt-1">Verify Your Email Address</h2>
+        <p class="text-sm text-slate-500">We’ll send a 6-digit confirmation code to verify your service account.</p>
       </div>
 
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Email Address</label>
-        <input type="email" id="inputEmail" placeholder="alex.smith@gmail.com" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
-      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="emailInput" placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-slate-900">
+        </div>
 
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Edmonton Street Address</label>
-        <input type="text" id="inputAddress" placeholder="e.g. 2124 Haddow Dr NW" value="2124 Haddow Dr NW" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
-      </div>
+        <button id="btnSendCode" onclick="sendVerificationCode()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl shadow-md shadow-sky-100 transition">
+          Send Verification Code
+        </button>
 
-      <button onclick="goToStep2()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-sm flex items-center justify-center gap-2">
-        <span>Select Service</span> ➔
-      </button>
-    </div>
-
-    <!-- STEP 2: SERVICE TYPE -->
-    <div id="step2" class="space-y-4 hidden">
-      <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Choose Service Type</h2>
-
-        <!-- SNOW REMOVAL OPTION -->
-        <div onclick="selectService('snow')" id="cardSnow" class="border-2 border-sky-600 bg-sky-50/70 rounded-xl p-4 cursor-pointer transition">
-          <div class="flex items-start gap-3">
-            <div class="text-3xl">❄️</div>
-            <div class="flex-grow">
-              <div class="flex items-center justify-between">
-                <h3 class="font-bold text-slate-900 text-sm">Winter Snow Removal</h3>
-                <span class="text-[10px] bg-sky-600 text-white px-2 py-0.5 rounded-full font-bold">Monthly Contract</span>
-              </div>
-              <p class="text-xs text-slate-600 mt-1">Automatic clearing post-snowfall. Driveways, walkways, and ice melt application.</p>
-            </div>
+        <!-- Code Input Box (Hidden initially) -->
+        <div id="codeSection" class="hidden space-y-3 pt-2">
+          <label class="block text-sm font-semibold text-slate-700">Enter 6-Digit Code</label>
+          <div class="flex space-x-2">
+            <input type="text" id="codeInput" maxlength="6" placeholder="123456" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center tracking-widest text-lg font-bold">
+            <button onclick="verifyCode()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 rounded-xl transition">
+              Verify
+            </button>
           </div>
         </div>
-
-        <!-- FALL CLEANUP OPTION -->
-        <div onclick="selectService('fall')" id="cardFall" class="border-2 border-slate-200 bg-white hover:border-amber-400 rounded-xl p-4 cursor-pointer transition">
-          <div class="flex items-start gap-3">
-            <div class="text-3xl">🍂</div>
-            <div class="flex-grow">
-              <div class="flex items-center justify-between">
-                <h3 class="font-bold text-slate-900 text-sm">Fall Leaf & Yard Cleanup</h3>
-                <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">One-Time Service</span>
-              </div>
-              <p class="text-xs text-slate-600 mt-1">Leaf raking, gutter blowout, final lawn trim, and autumn yard prep.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex gap-2 pt-2">
-          <button onclick="goToStep1()" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3 rounded-xl text-xs">Back</button>
-          <button onclick="goToStep3()" class="w-2/3 bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-xs transition">Configure Package ➔</button>
-        </div>
       </div>
     </div>
 
-    <!-- STEP 3: CONFIGURE PACKAGES -->
-    <div id="step3" class="space-y-4 hidden">
+    <!-- STEP 2: PROPERTY ADDRESS (Hidden by default) -->
+    <div id="step2" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 2 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900 mt-1">Property Location</h2>
+      <p class="text-sm text-slate-500 mb-4">Enter your Edmonton area address.</p>
       
-      <!-- SNOW PACKAGES -->
-      <div id="panelSnow" class="space-y-3">
-        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-          <h3 class="font-bold text-slate-900 text-sm">Select Monthly Snow Tier</h3>
-
-          <!-- STANDARD ($180) -->
-          <label onclick="setSnowTier('standard', 180)" class="block border-2 rounded-xl p-3 cursor-pointer border-slate-200 hover:border-sky-400 transition" id="tierStandard">
-            <div class="flex justify-between items-center">
-              <span class="font-bold text-slate-900 text-sm">Standard</span>
-              <span class="text-base font-extrabold text-slate-900">$180 <span class="text-xs text-slate-500 font-normal">/ mo</span></span>
-            </div>
-            <p class="text-xs text-slate-500 mt-0.5">Cleared within 24 hrs post-storm. Single driveway + front steps & walk.</p>
-          </label>
-
-          <!-- PREMIUM ($230) -->
-          <label onclick="setSnowTier('premium', 230)" class="block border-2 border-sky-600 bg-sky-50/70 rounded-xl p-3 cursor-pointer transition" id="tierPremium">
-            <div class="flex justify-between items-center">
-              <span class="font-bold text-slate-900 text-sm">Premium (Recommended)</span>
-              <span class="text-base font-extrabold text-slate-900">$230 <span class="text-xs text-slate-500 font-normal">/ mo</span></span>
-            </div>
-            <p class="text-xs text-slate-600 mt-0.5">Rapid 12-hr priority dispatch + corner city sidewalk & pet-safe ice melt included.</p>
-          </label>
-
-          <!-- EXPRESS VIP ($290) -->
-          <label onclick="setSnowTier('express', 290)" class="block border-2 rounded-xl p-3 cursor-pointer border-slate-200 hover:border-sky-400 transition" id="tierExpress">
-            <div class="flex justify-between items-center">
-              <span class="font-bold text-slate-900 text-sm">Express VIP</span>
-              <span class="text-base font-extrabold text-slate-900">$290 <span class="text-xs text-slate-500 font-normal">/ mo</span></span>
-            </div>
-            <p class="text-xs text-slate-500 mt-0.5">First-in-queue clearance (&lt; 6 hrs) + unlimited repeat visits during multi-day storms.</p>
-          </label>
-        </div>
-      </div>
-
-      <!-- FALL CLEANUP PACKAGES -->
-      <div id="panelFall" class="space-y-3 hidden">
-        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-3">
-          <h3 class="font-bold text-slate-900 text-sm">Select Fall Cleanup Options</h3>
-          <div class="space-y-2 text-xs">
-            <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-              <input type="checkbox" id="fallLeaves" checked onchange="calcPrice()" class="w-4 h-4 text-amber-600 rounded">
-              <span class="font-semibold text-slate-800">Leaf Raking & Yard Bagging ($140)</span>
-            </label>
-            <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-              <input type="checkbox" id="fallGutters" checked onchange="calcPrice()" class="w-4 h-4 text-amber-600 rounded">
-              <span class="font-semibold text-slate-800">Eavestrough & Gutter Blowout (+$60)</span>
-            </label>
-            <label class="flex items-center gap-2.5 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-              <input type="checkbox" id="fallLawnCut" onchange="calcPrice()" class="w-4 h-4 text-amber-600 rounded">
-              <span class="font-semibold text-slate-800">Final Autumn Lawn Trim & Mulch (+$45)</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="flex gap-2">
-        <button onclick="goToStep2()" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="submitOrder()" class="w-2/3 bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-md">Complete Booking ➔</button>
-      </div>
+      <input type="text" id="addressInput" placeholder="12345 100 St NW, Edmonton" class="w-full px-4 py-3 rounded-xl border border-slate-300 mb-4">
+      <button onclick="alert('Address saved! Proceeding...')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl">Next Step</button>
     </div>
 
   </main>
 
-  <!-- STICKY BOTTOM PRICE BAR -->
-  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3 z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
-    <div class="max-w-md mx-auto flex justify-between items-center">
-      <div>
-        <span class="text-[10px] uppercase font-bold text-slate-400 block">Total Rate</span>
-        <span class="text-xl font-black text-slate-900" id="priceDisplay">$230.00</span>
-        <span class="text-xs text-slate-500" id="cycleDisplay">/ month</span>
-      </div>
-      <button onclick="handleBottomClick()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition">
-        <span>Continue</span> ➔
-      </button>
-    </div>
-  </div>
-
+  <!-- JavaScript Logic -->
   <script>
-    let currentStep = 1;
-    let selectedSrv = 'snow';
-    let snowPrice = 230;
+    // --- EMAILJS INTEGRATION ---
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";  // Replace with your Public Key from Miraj -> Account
+    const EMAILJS_SERVICE_ID = "service_d73rlh2";   // Your Gmail Service ID
+    const EMAILJS_TEMPLATE_ID = "template_l7qdsij"; // Your Template ID
 
-    function goToStep1() {
-      currentStep = 1;
-      updateUI();
+    // Initialize EmailJS
+    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+      emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 
-    function goToStep2() {
-      const email = document.getElementById('inputEmail').value;
+    let generatedCode = "";
+
+    function sendVerificationCode() {
+      const email = document.getElementById('emailInput').value.trim();
       if (!email || !email.includes('@')) {
         alert('Please enter a valid email address.');
         return;
       }
-      currentStep = 2;
-      updateUI();
-    }
 
-    function goToStep3() {
-      currentStep = 3;
-      updateUI();
-    }
+      // Generate random 6-digit code
+      generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-    function updateUI() {
-      document.getElementById('step1').classList.add('hidden');
-      document.getElementById('step2').classList.add('hidden');
-      document.getElementById('step3').classList.add('hidden');
-
-      document.getElementById(`step${currentStep}`).classList.remove('hidden');
-
-      const titles = ['Step 1: Contact Info', 'Step 2: Service Selection', 'Step 3: Package Setup'];
-      document.getElementById('stepTitle').innerText = titles[currentStep - 1];
-
-      document.getElementById('dot1').className = currentStep >= 1 ? 'w-2.5 h-2.5 rounded-full bg-sky-600' : 'w-2.5 h-2.5 rounded-full bg-slate-200';
-      document.getElementById('dot2').className = currentStep >= 2 ? 'w-2.5 h-2.5 rounded-full bg-sky-600' : 'w-2.5 h-2.5 rounded-full bg-slate-200';
-      document.getElementById('dot3').className = currentStep >= 3 ? 'w-2.5 h-2.5 rounded-full bg-sky-600' : 'w-2.5 h-2.5 rounded-full bg-slate-200';
-
-      calcPrice();
-    }
-
-    function selectService(srv) {
-      selectedSrv = srv;
-      if (srv === 'snow') {
-        document.getElementById('cardSnow').className = "border-2 border-sky-600 bg-sky-50/70 rounded-xl p-4 cursor-pointer transition";
-        document.getElementById('cardFall').className = "border-2 border-slate-200 bg-white hover:border-amber-400 rounded-xl p-4 cursor-pointer transition";
-        document.getElementById('panelSnow').classList.remove('hidden');
-        document.getElementById('panelFall').classList.add('hidden');
+      // Send via EmailJS
+      if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          to_email: email,
+          passcode: generatedCode
+        }).then(() => {
+          alert(`Verification code sent to ${email}! Check your inbox.`);
+        }).catch(err => {
+          console.error("EmailJS Error:", err);
+          alert(`Error sending email. Your verification code is: ${generatedCode}`);
+        });
       } else {
-        document.getElementById('cardFall').className = "border-2 border-amber-500 bg-amber-50/70 rounded-xl p-4 cursor-pointer transition";
-        document.getElementById('cardSnow').className = "border-2 border-slate-200 bg-white hover:border-sky-400 rounded-xl p-4 cursor-pointer transition";
-        document.getElementById('panelFall').classList.remove('hidden');
-        document.getElementById('panelSnow').classList.add('hidden');
+        alert(`Demo Mode: Your verification code is: ${generatedCode}`);
       }
-      calcPrice();
+
+      document.getElementById('codeSection').classList.remove('hidden');
+      document.getElementById('btnSendCode').classList.add('hidden');
     }
 
-    function setSnowTier(tier, price) {
-      snowPrice = price;
-      ['Standard', 'Premium', 'Express'].forEach(t => {
-        document.getElementById(`tier${t}`).className = "block border-2 rounded-xl p-3 cursor-pointer border-slate-200 transition";
-      });
-      document.getElementById(`tier${tier.charAt(0).toUpperCase() + tier.slice(1)}`).className = "block border-2 border-sky-600 bg-sky-50/70 rounded-xl p-3 cursor-pointer transition";
-      calcPrice();
-    }
-
-    function calcPrice() {
-      if (selectedSrv === 'snow') {
-        document.getElementById('priceDisplay').innerText = `$${snowPrice}.00`;
-        document.getElementById('cycleDisplay').innerText = '/ month';
+    function verifyCode() {
+      const userCode = document.getElementById('codeInput').value.trim();
+      if (userCode === generatedCode && generatedCode !== "") {
+        alert('Email verified successfully!');
+        document.getElementById('step1').classList.add('hidden');
+        document.getElementById('step2').classList.remove('hidden');
       } else {
-        let total = 140;
-        if (document.getElementById('fallGutters').checked) total += 60;
-        if (document.getElementById('fallLawnCut').checked) total += 45;
-        document.getElementById('priceDisplay').innerText = `$${total}.00`;
-        document.getElementById('cycleDisplay').innerText = ' total';
+        alert('Invalid code. Please try again.');
       }
-    }
-
-    function handleBottomClick() {
-      if (currentStep === 1) goToStep2();
-      else if (currentStep === 2) goToStep3();
-      else submitOrder();
-    }
-
-    function submitOrder() {
-      alert(`Booking Request Submitted!\n\nAddress: ${document.getElementById('inputAddress').value}\nTotal Rate: ${document.getElementById('priceDisplay').innerText} ${document.getElementById('cycleDisplay').innerText}\n\nPayment details sent to: ${document.getElementById('inputEmail').value}`);
     }
   </script>
 </body>
 </html>
+
+
