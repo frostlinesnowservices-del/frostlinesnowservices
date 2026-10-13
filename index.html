@@ -3,87 +3,214 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Frostline Snow Services - Portal</title>
+  <title>Frostline Snow Services | Edmonton</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- EmailJS SDK -->
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen pb-12">
 
   <!-- Header -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
-    <div class="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="max-w-xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <!-- Logo Display -->
         <div class="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center text-white text-xl font-black shadow-inner">❄️</div>
         <div>
           <h1 class="font-bold text-slate-900 leading-tight">Frostline</h1>
           <p class="text-xs text-slate-500">Snow Services Edmonton</p>
         </div>
       </div>
-      <a href="tel:7800000000" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition">Need Help?</a>
+      <!-- UPDATED CONTACT BUTTON / DROPDOWN -->
+      <div class="relative group">
+        <a href="tel:5875987797" class="text-xs bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 px-3 py-1.5 rounded-lg font-bold transition flex items-center space-x-1">
+          <span>📞 Need Help?</span>
+        </a>
+        <!-- Dropdown on Hover/Tap showing Call & Email -->
+        <div class="absolute right-0 mt-1 w-64 bg-white rounded-xl shadow-lg border border-slate-200 p-3 hidden group-hover:block z-50 text-xs space-y-2">
+          <p class="font-bold text-slate-800 border-b pb-1">Contact Support</p>
+          <a href="tel:5875987797" class="flex items-center space-x-2 text-slate-700 hover:text-sky-600 font-medium">
+            <span>📱 Call/Text:</span>
+            <span class="font-bold text-slate-900">587-598-7797</span>
+          </a>
+          <a href="mailto:frostlinesnowservices@gmail.com" class="flex items-center space-x-2 text-slate-700 hover:text-sky-600 font-medium truncate">
+            <span>✉️ Email:</span>
+            <span class="font-bold text-slate-900 truncate">frostlinesnowservices@gmail.com</span>
+          </a>
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- Main Booking App Container -->
-  <main class="max-w-2xl mx-auto px-4 py-8">
+  <main class="max-w-xl mx-auto px-4 py-6">
 
     <!-- STEP 1: EMAIL VERIFICATION -->
-    <div id="step1" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-      <div class="mb-6">
-        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 1 of 9</span>
-        <h2 class="text-xl font-bold text-slate-900 mt-1">Verify Your Email Address</h2>
-        <p class="text-sm text-slate-500">We’ll send a 6-digit confirmation code to verify your service account.</p>
+    <div id="step1" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 1 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900">Verify Your Email Address</h2>
+      <p class="text-sm text-slate-500">We’ll send a 6-digit confirmation code to verify your booking.</p>
+      
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
+        <input type="email" id="emailInput" placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 text-slate-900">
       </div>
 
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
-          <input type="email" id="emailInput" placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 text-slate-900">
-        </div>
+      <button id="btnSendCode" onclick="sendVerificationCode()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl shadow-md transition">
+        Send Verification Code
+      </button>
 
-        <button id="btnSendCode" onclick="sendVerificationCode()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl shadow-md shadow-sky-100 transition">
-          Send Verification Code
-        </button>
-
-        <!-- Code Input Box (Hidden initially) -->
-        <div id="codeSection" class="hidden space-y-3 pt-2">
-          <label class="block text-sm font-semibold text-slate-700">Enter 6-Digit Code</label>
-          <div class="flex space-x-2">
-            <input type="text" id="codeInput" maxlength="6" placeholder="123456" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center tracking-widest text-lg font-bold">
-            <button onclick="verifyCode()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 rounded-xl transition">
-              Verify
-            </button>
-          </div>
+      <div id="codeSection" class="hidden space-y-3 pt-2">
+        <label class="block text-sm font-semibold text-slate-700">Enter 6-Digit Code</label>
+        <div class="flex space-x-2">
+          <input type="text" id="codeInput" maxlength="6" placeholder="123456" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-center tracking-widest text-lg font-bold">
+          <button onclick="verifyCode()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 rounded-xl transition">
+            Verify
+          </button>
         </div>
       </div>
     </div>
 
-    <!-- STEP 2: PROPERTY ADDRESS (Hidden by default) -->
-    <div id="step2" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+    <!-- STEP 2: PROPERTY ADDRESS -->
+    <div id="step2" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
       <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 2 of 9</span>
-      <h2 class="text-xl font-bold text-slate-900 mt-1">Property Location</h2>
-      <p class="text-sm text-slate-500 mb-4">Enter your Edmonton area address.</p>
+      <h2 class="text-xl font-bold text-slate-900">Property Location</h2>
+      <p class="text-sm text-slate-500">Where should we clear snow?</p>
       
-      <input type="text" id="addressInput" placeholder="12345 100 St NW, Edmonton" class="w-full px-4 py-3 rounded-xl border border-slate-300 mb-4">
-      <button onclick="alert('Address saved! Proceeding...')" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl">Next Step</button>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Street Address</label>
+        <input type="text" id="addressInput" placeholder="18321 87ave NW, Edmonton" class="w-full px-4 py-3 rounded-xl border border-slate-300">
+      </div>
+      
+      <button onclick="goToStep(3)" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition">Continue</button>
+    </div>
+
+    <!-- STEP 3: SERVICE TYPE -->
+    <div id="step3" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 3 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900">Select Service Type</h2>
+      <div class="grid grid-cols-1 gap-3">
+        <button onclick="selectService('Monthly Subscription', 180); goToStep(4)" class="p-4 border-2 border-slate-200 hover:border-sky-500 rounded-xl text-left font-semibold hover:bg-sky-50 transition">
+          ❄️ Monthly Unlimited Snow Removal
+          <span class="block text-xs font-normal text-slate-500 mt-1">Full winter coverage after every snowfall.</span>
+        </button>
+        <button onclick="selectService('One-Time Clearing', 65); goToStep(4)" class="p-4 border-2 border-slate-200 hover:border-sky-500 rounded-xl text-left font-semibold hover:bg-sky-50 transition">
+          🧹 One-Time Snow Clearing
+          <span class="block text-xs font-normal text-slate-500 mt-1">Single visit for immediate clearing.</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 4: PROPERTY SIZE & DRIVEWAY -->
+    <div id="step4" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 4 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900">Property Layout</h2>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-2">Driveway Size</label>
+        <select id="drivewaySelect" class="w-full px-4 py-3 rounded-xl border border-slate-300">
+          <option value="0">Single Car Driveway (Included)</option>
+          <option value="25">Double Car Driveway (+$25)</option>
+          <option value="50">3+ Car / Large Driveway (+$50)</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-2">Sidewalk & Walkways</label>
+        <select id="walkwaySelect" class="w-full px-4 py-3 rounded-xl border border-slate-300">
+          <option value="0">Standard Front Walkway (Included)</option>
+          <option value="20">Corner Lot / Long Sidewalk (+$20)</option>
+        </select>
+      </div>
+      <button onclick="calculatePricing(); goToStep(5)" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition">Calculate Quote</button>
+    </div>
+
+    <!-- STEP 5: QUOTE & ADD-ONS -->
+    <div id="step5" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 5 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900">Your Estimated Quote</h2>
+      <div class="bg-sky-50 p-4 rounded-xl text-center border border-sky-100">
+        <span class="text-sm text-sky-700 font-medium">Estimated Rate</span>
+        <p id="totalQuote" class="text-3xl font-black text-sky-900 mt-1">$0</p>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-sm font-semibold text-slate-700">Optional Add-ons</label>
+        <label class="flex items-center space-x-3 p-3 border rounded-xl cursor-pointer">
+          <input type="checkbox" id="addIceMelt" onchange="calculatePricing()" class="w-5 h-5 text-sky-600 rounded">
+          <span class="text-sm font-medium">Eco-Friendly Ice Melt Application (+$15)</span>
+        </label>
+      </div>
+
+      <button onclick="goToStep(6)" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition">Proceed with Quote</button>
+    </div>
+
+    <!-- STEP 6: CONTACT DETAILS -->
+    <div id="step6" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 6 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900">Contact Details</h2>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
+        <input type="text" id="nameInput" placeholder="John Doe" class="w-full px-4 py-3 rounded-xl border border-slate-300">
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Phone Number</label>
+        <input type="tel" id="phoneInput" placeholder="(587) 000-0000" class="w-full px-4 py-3 rounded-xl border border-slate-300">
+      </div>
+      <button onclick="goToStep(7)" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition">Next Step</button>
+    </div>
+
+    <!-- STEP 7: SCHEDULE & PREFERENCES -->
+    <div id="step7" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 7 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900">Service Start Date</h2>
+      <input type="date" id="startDate" class="w-full px-4 py-3 rounded-xl border border-slate-300">
+      <button onclick="goToStep(8)" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition">Review Order</button>
+    </div>
+
+    <!-- STEP 8: REVIEW & CONFIRM -->
+    <div id="step8" class="hidden bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-4">
+      <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">Step 8 of 9</span>
+      <h2 class="text-xl font-bold text-slate-900">Review Booking</h2>
+      <div id="orderSummary" class="bg-slate-50 p-4 rounded-xl text-sm space-y-2 text-slate-700 border border-slate-200">
+        <!-- Summary dynamically inserted -->
+      </div>
+      <button onclick="submitFinalBooking()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-md transition">Confirm & Submit Booking</button>
+    </div>
+
+    <!-- STEP 9: SUCCESS CONFIRMATION -->
+    <div id="step9" class="hidden bg-white rounded-2xl p-8 shadow-sm border border-slate-200 text-center space-y-4">
+      <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto">✓</div>
+      <h2 class="text-2xl font-bold text-slate-900">Booking Complete!</h2>
+      <p class="text-slate-600 text-sm">Thank you for choosing Frostline. We have received your property request and will contact you shortly to confirm schedule details.</p>
     </div>
 
   </main>
 
-  <!-- JavaScript Logic -->
   <script>
-    // --- EMAILJS INTEGRATION ---
-    const EMAILJS_PUBLIC_KEY = "1gFDyAi2z11U1cXoO";  // Replace with your Public Key from Miraj -> Account
-    const EMAILJS_SERVICE_ID = "service_d73rlh2";   // Your Gmail Service ID
-    const EMAILJS_TEMPLATE_ID = "template_l7qdsij"; // Your Template ID
+    // Configured EmailJS settings
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Replace with your Public Key
+    const EMAILJS_SERVICE_ID = "service_d73rlh2";
+    const EMAILJS_TEMPLATE_ID = "template_l7qdsij";
 
-    // Initialize EmailJS
     if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
       emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 
     let generatedCode = "";
+    let bookingData = {
+      email: "",
+      address: "",
+      service: "",
+      basePrice: 0,
+      totalPrice: 0
+    };
+
+    function goToStep(stepNum) {
+      for (let i = 1; i <= 9; i++) {
+        const stepEl = document.getElementById(`step${i}`);
+        if (stepEl) stepEl.classList.add('hidden');
+      }
+      const targetStep = document.getElementById(`step${stepNum}`);
+      if (targetStep) targetStep.classList.remove('hidden');
+
+      if (stepNum === 8) renderSummary();
+    }
 
     function sendVerificationCode() {
       const email = document.getElementById('emailInput').value.trim();
@@ -92,10 +219,9 @@
         return;
       }
 
-      // Generate random 6-digit code
+      bookingData.email = email;
       generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-      // Send via EmailJS
       if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: email,
@@ -103,11 +229,11 @@
         }).then(() => {
           alert(`Verification code sent to ${email}! Check your inbox.`);
         }).catch(err => {
-          console.error("EmailJS Error:", err);
-          alert(`Error sending email. Your verification code is: ${generatedCode}`);
+          console.error("EmailJS error:", err);
+          alert(`Error sending email. Your code is: ${generatedCode}`);
         });
       } else {
-        alert(`Demo Mode: Your verification code is: ${generatedCode}`);
+        alert(`Demo Code: ${generatedCode}`);
       }
 
       document.getElementById('codeSection').classList.remove('hidden');
@@ -118,14 +244,46 @@
       const userCode = document.getElementById('codeInput').value.trim();
       if (userCode === generatedCode && generatedCode !== "") {
         alert('Email verified successfully!');
-        document.getElementById('step1').classList.add('hidden');
-        document.getElementById('step2').classList.remove('hidden');
+        goToStep(2);
       } else {
-        alert('Invalid code. Please try again.');
+        alert('Invalid verification code. Please try again.');
       }
+    }
+
+    function selectService(name, price) {
+      bookingData.service = name;
+      bookingData.basePrice = price;
+    }
+
+    function calculatePricing() {
+      const driveway = parseInt(document.getElementById('drivewaySelect').value || 0);
+      const walkway = parseInt(document.getElementById('walkwaySelect').value || 0);
+      const iceMelt = document.getElementById('addIceMelt').checked ? 15 : 0;
+
+      bookingData.totalPrice = bookingData.basePrice + driveway + walkway + iceMelt;
+      document.getElementById('totalQuote').innerText = `$${bookingData.totalPrice}`;
+    }
+
+    function renderSummary() {
+      bookingData.address = document.getElementById('addressInput').value || 'N/A';
+      const name = document.getElementById('nameInput').value || 'N/A';
+      const phone = document.getElementById('phoneInput').value || 'N/A';
+      const date = document.getElementById('startDate').value || 'As soon as possible';
+
+      document.getElementById('orderSummary').innerHTML = `
+        <p><strong>Customer:</strong> ${name} (${phone})</p>
+        <p><strong>Email:</strong> ${bookingData.email}</p>
+        <p><strong>Address:</strong> ${bookingData.address}</p>
+        <p><strong>Selected Plan:</strong> ${bookingData.service}</p>
+        <p><strong>Start Date:</strong> ${date}</p>
+        <p class="text-sky-700 font-bold text-base mt-2"><strong>Total Rate:</strong> $${bookingData.totalPrice}</p>
+      `;
+    }
+
+    function submitFinalBooking() {
+      goToStep(9);
     }
   </script>
 </body>
 </html>
-
 
