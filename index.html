@@ -368,7 +368,7 @@
       <!-- CUSTOM QUOTE NOTICE (SHOWN ONLY WHEN OVER 20 BAGS IS SELECTED) -->
       <div id="customQuoteBanner" class="hidden bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-900 space-y-1">
         <p class="font-bold text-sm">🍂 Custom Large Property Review</p>
-        <p class="leading-relaxed">No payment is required today. Once you submit below, our team will inspect your property size via satellite or on-site visit and contact you with an exact flat-rate quote before any work begins.</p>
+        <p class="leading-relaxed">No payment is required today. Once you submit below, our team will inspect your property layout via satellite or on-site visit and text/email your exact flat-rate quote before any work begins.</p>
       </div>
 
       <!-- MANDATORY LEGAL CHECKBOX -->
@@ -394,13 +394,13 @@
       <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto">✓</div>
       <h2 id="confHeading" class="text-xl font-extrabold text-slate-900">Booking Submitted!</h2>
       <p class="text-xs text-slate-600 leading-relaxed">Thank you for choosing Frostline. We have received your property request and will contact you shortly to confirm schedule details.</p>
-      <div class="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 text-xs space-y-1.5">
-        <p><strong>Service Address:</strong> <span id="confAddress"></span></p>
-        <p><strong>Total Amount:</strong> <span id="confTotal"></span></p>
-        <p><strong>Next Steps:</strong> <span id="confPayInstructions"></span></p>
-        <p><strong>Questions?</strong> Call or text <a href="tel:5875987797" class="text-sky-600 font-bold underline">(587) 598-7797</a></p>
+      <div class="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 text-xs space-y-2">
+        <p><strong class="text-slate-900">Service Address:</strong> <span id="confAddress" class="text-slate-700">Address provided in request</span></p>
+        <p><strong class="text-slate-900">Total Amount:</strong> <span id="confTotal" class="font-semibold text-slate-800">Pending (Custom Quote Review)</span></p>
+        <p><strong class="text-slate-900">Next Steps:</strong> <span id="confPayInstructions" class="text-slate-700 leading-relaxed">Our team will inspect your property layout via satellite or on-site visit and text/email your exact flat-rate quote before any work begins.</span></p>
+        <p class="pt-1 border-t border-slate-200/80"><strong class="text-slate-900">Questions?</strong> Call or text <a href="tel:5875987797" class="text-sky-600 font-bold underline">(587) 598-7797</a></p>
       </div>
-      <button type="button" onclick="location.reload()" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl text-xs">Start Another Booking</button>
+      <button type="button" onclick="location.reload()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-xs transition">Start Another Booking</button>
     </div>
 
     <!-- FOOTER LINKS -->
@@ -521,8 +521,10 @@
   </div>
 
   <script>
-    // --- EMAILJS CONFIGURATION ---
-    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Replace with your Public Key from EmailJS dashboard
+    // =========================================================================
+    // EMAILJS CONFIGURATION (PASTE YOUR PUBLIC KEY BELOW)
+    // =========================================================================
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // <-- Replace with your Public Key from EmailJS Account page
     const EMAILJS_SERVICE_ID = "service_d73rlh2";
     const EMAILJS_TEMPLATE_ID = "template_l7qdsij";
 
@@ -681,7 +683,8 @@
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: email,
           passcode: generatedCode,
-          code: generatedCode
+          code: generatedCode,
+          message: `Your Frostline 6-digit verification code is: ${generatedCode}`
         }).then(() => {
           alert(`Verification code sent to ${email}! Check your inbox (and spam folder).`);
         }).catch(err => {
@@ -798,6 +801,7 @@
       // Hide bottomBar on confirmation screen (Step 7), when no valid tier is chosen yet, or when Over 20 Bags custom quote is active
       if (currentStep === 7 || !isStep1SelectionValid() || isCustomQuoteFlow()) {
         bottomBar.classList.add('hidden');
+        document.getElementById('displayTotal').innerText = "$0.00";
         return;
       }
 
@@ -888,15 +892,37 @@
       const endDate = document.getElementById('endDate').value;
 
       const calculatedText = document.getElementById('displayTotal').innerText;
-      if (!isCustom && (calculatedText === "$0.00" || !calculatedText)) {
+      const rawPriceNumber = parseFloat((calculatedText || "").replace(/[^0-9.]/g, ""));
+      const isZeroOrMissing = isCustom || !rawPriceNumber || rawPriceNumber <= 0;
+
+      if (!isCustom && isZeroOrMissing) {
         alert("Please select a valid service package on Step 1.");
         goToStep(1);
         return;
       }
 
-      const totalDisplay = isCustom 
-        ? "Custom Quote Review (Over 20 Bags / Large Property)" 
+      // 1. Safe Fallback for Service Address
+      const safeAddress = address && address.length > 0
+        ? address
+        : "Address provided in request";
+
+      // 2. Safe Fallback for Total Amount
+      const safeTotal = isZeroOrMissing
+        ? "Pending (Custom Quote Review)"
         : `${calculatedText} ${document.getElementById('displayCycle').innerText}`;
+
+      // 3. Safe Fallback for Next Steps
+      const safeNextSteps = isZeroOrMissing
+        ? "Our team will inspect your property layout via satellite or on-site visit and text/email your exact flat-rate quote before any work begins."
+        : paymentMethod === 'etransfer'
+          ? "Once our team verifies your property layout via satellite, we will email your finalized monthly total and secure instructions to complete your Interac e-Transfer Auto-Deposit."
+          : "Once our team verifies your property layout via satellite, we will email your secure Credit/Debit payment link.";
+
+      // Populate Final Receipt DOM
+      document.getElementById('confHeading').innerText = isZeroOrMissing ? "Custom Quote Request Submitted!" : "Booking Submitted!";
+      document.getElementById('confAddress').innerText = safeAddress;
+      document.getElementById('confTotal').innerText = safeTotal;
+      document.getElementById('confPayInstructions').innerText = safeNextSteps;
 
       // Build detailed summary for owner email
       let serviceDetails = "";
@@ -913,22 +939,13 @@
         serviceDetails = `Fall Leaf Cleanup (${packageLabel}) | Mature Trees: ${fallTrees ? 'Yes' : 'No'} | Gate: ${gate}`;
       }
 
-      document.getElementById('confHeading').innerText = isCustom ? "Custom Quote Request Submitted!" : "Booking Submitted!";
-      document.getElementById('confAddress').innerText = address;
-      document.getElementById('confTotal').innerText = totalDisplay;
-
-      if (isCustom) {
-        document.getElementById('confPayInstructions').innerText = "Our team will review your property via satellite and contact you shortly with a custom flat-rate quote.";
-      } else if (paymentMethod === 'etransfer') {
-        document.getElementById('confPayInstructions').innerText = "Once our team verifies your property layout via satellite, we will email your finalized total and secure instructions to complete your Interac e-Transfer Auto-Deposit.";
-      } else {
-        document.getElementById('confPayInstructions').innerText = "Once our team verifies your property layout via satellite, we will email your secure Credit/Debit payment link.";
-      }
-
+      // Send Owner Notification via EmailJS
       if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: "frostlinesnowservices@gmail.com",
-          message: `NEW FROSTLINE SUBMISSION!\n\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\n\nService: ${serviceDetails}\nTotal Quoted: ${totalDisplay}\nPayment Method: ${isCustom ? 'CUSTOM QUOTE REVIEW' : paymentMethod.toUpperCase()}\nStart Date: ${startDate}\nEnd Date: ${endDate}\nNotes: ${notes}\nLegal Waiver: AGREED & TIMESTAMPED (${new Date().toLocaleString()})`
+          code: "NEW BOOKING",
+          passcode: "NEW BOOKING",
+          message: `NEW FROSTLINE SUBMISSION!\n\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${safeAddress}\n\nService: ${serviceDetails}\nTotal Quoted: ${safeTotal}\nPayment Method: ${isZeroOrMissing ? 'CUSTOM QUOTE REVIEW' : paymentMethod.toUpperCase()}\nStart Date: ${startDate}\nEnd Date: ${endDate}\nNotes: ${notes}\nLegal Waiver: AGREED & TIMESTAMPED (${new Date().toLocaleString()})`
         });
       }
 
