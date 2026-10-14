@@ -16,19 +16,22 @@
 
   <!-- HEADER -->
   <header class="bg-slate-900 text-white sticky top-0 z-30 shadow-md">
-    <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2.5">
-        <div class="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center text-white text-xl font-black shadow-inner">❄️</div>
+        <div class="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center text-white text-xl font-black shadow-inner shrink-0">❄️</div>
         <div>
           <span class="text-base font-extrabold tracking-tight block text-white leading-tight">FROSTLINE</span>
           <span class="text-[10px] font-semibold text-sky-400 uppercase tracking-wider block">Snow & Property Services</span>
+          <span class="text-[10px] text-slate-400 block">Edmonton & Area</span>
         </div>
       </div>
       <div class="text-right flex flex-col items-end gap-1">
         <a href="tel:5875987797" class="text-xs font-bold px-2.5 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded-full transition flex items-center gap-1 shadow-sm">
           📞 (587) 598-7797
         </a>
-        <span class="text-[10px] font-medium text-slate-400">Edmonton & Area</span>
+        <a href="mailto:frostlinesnowservices@gmail.com" class="text-[10px] font-medium text-sky-300 hover:text-white underline truncate max-w-[175px]">
+          ✉️ frostlinesnowservices@gmail.com
+        </a>
       </div>
     </div>
   </header>
@@ -44,7 +47,7 @@
   </div>
 
   <!-- STEP PROGRESS BAR -->
-  <div id="progressBarContainer" class="bg-white border-b border-slate-200 sticky top-[62px] z-20 shadow-sm">
+  <div id="progressBarContainer" class="bg-white border-b border-slate-200 sticky top-[68px] z-20 shadow-sm">
     <div class="max-w-md mx-auto px-4 py-2 flex items-center justify-between text-xs font-bold text-slate-700">
       <span id="stepTitle">Step 1: Select Service</span>
       <span id="stepCounter" class="text-sky-600">1 / 6</span>
@@ -58,29 +61,40 @@
     <div id="step1" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
       <div>
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">Select Service</h2>
-        <p class="text-xs text-slate-500">Choose your service and package tier below to begin.</p>
+        <p class="text-xs text-slate-500">Switch tabs below to choose between Snow Services or Fall Leaf Cleanup.</p>
       </div>
 
-      <div class="space-y-3">
-        <div onclick="setMainService('snow')" id="btnSnowMain" class="border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-900 text-sm">❄️ Snow Services</span>
-            <span id="badgeSnow" class="text-xs font-bold text-sky-600">Selected</span>
-          </div>
-        </div>
+      <!-- SEGMENTED TOGGLE TABS FOR SERVICE CATEGORY -->
+      <div class="bg-slate-100 p-1.5 rounded-xl grid grid-cols-2 gap-1.5 border border-slate-200" role="tablist">
+        <button
+          type="button"
+          role="tab"
+          id="tabSnow"
+          aria-selected="true"
+          onclick="setMainService('snow')"
+          class="py-3 px-2 rounded-lg font-extrabold text-xs transition-all flex flex-col items-center justify-center gap-0.5 bg-sky-600 text-white shadow-sm"
+        >
+          <span>❄️ Snow Services</span>
+          <span id="subTabSnow" class="text-[10px] font-medium text-sky-100">Monthly or On-Demand</span>
+        </button>
 
-        <div onclick="setMainService('fall')" id="btnFallMain" class="border-2 border-slate-200 p-4 rounded-xl cursor-pointer">
-          <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-900 text-sm">🍂 Fall Leaf Cleanup & Bagging</span>
-            <span id="badgeFall" class="text-xs text-slate-400">One-Time</span>
-          </div>
-        </div>
+        <button
+          type="button"
+          role="tab"
+          id="tabFall"
+          aria-selected="false"
+          onclick="setMainService('fall')"
+          class="py-3 px-2 rounded-lg font-extrabold text-xs transition-all flex flex-col items-center justify-center gap-0.5 text-slate-600 hover:text-slate-900"
+        >
+          <span>🍂 Fall Leaf Cleanup</span>
+          <span id="subTabFall" class="text-[10px] font-medium text-slate-400">One-Time Raking & Bagging</span>
+        </button>
       </div>
 
-      <!-- SNOW OPTIONS -->
-      <div id="snowSubOptions" class="space-y-3 pt-2">
+      <!-- SNOW OPTIONS (SHOWN WHEN SNOW TAB IS ACTIVE) -->
+      <div id="snowSubOptions" class="space-y-3 pt-1">
         <div class="flex items-center justify-between">
-          <h3 class="text-xs font-bold text-slate-500 uppercase">Snow Service Type</h3>
+          <h3 class="text-xs font-bold text-slate-500 uppercase">1. Choose Snow Service Type</h3>
           <span class="text-[10px] text-sky-700 bg-sky-50 px-2 py-0.5 rounded font-semibold">Auto-dispatched at 2cm+ snow</span>
         </div>
 
@@ -97,9 +111,9 @@
           </div>
         </div>
 
-        <!-- PLANS (ONLY FOR MONTHLY) -->
+        <!-- PLANS (ONLY FOR MONTHLY SNOW) -->
         <div id="plansSection" class="space-y-2 pt-2">
-          <h3 class="text-xs font-bold text-slate-500 uppercase">Select Plan Tier & Dispatch Speed *</h3>
+          <h3 class="text-xs font-bold text-slate-500 uppercase">2. Select Plan Tier & Dispatch Speed *</h3>
           
           <div onclick="setPlanTier('standard', 180)" id="planStandard" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
             <div>
@@ -127,9 +141,9 @@
         </div>
       </div>
 
-      <!-- FALL CLEANUP OPTIONS -->
-      <div id="fallSubOptions" class="space-y-3 pt-2 hidden">
-        <h3 class="text-xs font-bold text-slate-500 uppercase">Leaf Raking & Bagging Packages *</h3>
+      <!-- FALL CLEANUP OPTIONS (COMPLETELY HIDDEN UNLESS FALL TAB IS ACTIVE) -->
+      <div id="fallSubOptions" class="space-y-3 pt-1 hidden">
+        <h3 class="text-xs font-bold text-slate-500 uppercase">Select Leaf Raking & Bagging Package *</h3>
         <p class="text-[11px] text-slate-500 italic">Includes thorough leaf raking, lawn cleanup, and bagging. Final quote may vary based on yard size and leaf volume.</p>
         
         <div onclick="setFallTier('small', 130)" id="fallSmall" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
@@ -334,6 +348,15 @@
         </button>
       </div>
 
+      <!-- DIRECT FROSTLINE CONTACT BOX -->
+      <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 text-[11px] text-slate-600 text-center space-y-0.5">
+        <p class="font-bold text-slate-700">Need help with your booking?</p>
+        <p>
+          Call/Text: <a href="tel:5875987797" class="text-sky-600 font-bold underline">(587) 598-7797</a> • 
+          Email: <a href="mailto:frostlinesnowservices@gmail.com" class="text-sky-600 font-bold underline">frostlinesnowservices@gmail.com</a>
+        </p>
+      </div>
+
       <div class="pt-1">
         <button type="button" onclick="goToStep(4)" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl text-xs">Back to Schedule</button>
       </div>
@@ -398,7 +421,11 @@
         <p><strong class="text-slate-900">Service Address:</strong> <span id="confAddress" class="text-slate-700">Address provided in request</span></p>
         <p><strong class="text-slate-900">Total Amount:</strong> <span id="confTotal" class="font-semibold text-slate-800">Pending (Custom Quote Review)</span></p>
         <p><strong class="text-slate-900">Next Steps:</strong> <span id="confPayInstructions" class="text-slate-700 leading-relaxed">Our team will inspect your property layout via satellite or on-site visit and text/email your exact flat-rate quote before any work begins.</span></p>
-        <p class="pt-1 border-t border-slate-200/80"><strong class="text-slate-900">Questions?</strong> Call or text <a href="tel:5875987797" class="text-sky-600 font-bold underline">(587) 598-7797</a></p>
+        <div class="pt-2 border-t border-slate-200/80 space-y-1">
+          <p><strong class="text-slate-900">Direct Contact:</strong></p>
+          <p>📞 Phone / Text: <a href="tel:5875987797" class="text-sky-600 font-bold underline">(587) 598-7797</a></p>
+          <p>✉️ Email: <a href="mailto:frostlinesnowservices@gmail.com" class="text-sky-600 font-bold underline">frostlinesnowservices@gmail.com</a></p>
+        </div>
       </div>
       <button type="button" onclick="location.reload()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3.5 rounded-xl text-xs transition">Start Another Booking</button>
     </div>
@@ -522,13 +549,13 @@
 
   <script>
     // =========================================================================
-    // EMAILJS CONFIGURATION (PASTE YOUR PUBLIC KEY BELOW)
+    // EMAILJS CONFIGURATION (LIVE PUBLIC KEY CONFIGURED)
     // =========================================================================
-    const EMAILJS_PUBLIC_KEY = "1gFDyAi2z11U1cXoO"; // <-- Replace with your Public Key from EmailJS Account page
+    const EMAILJS_PUBLIC_KEY = "1gFDyAi2z11U1cXoO";
     const EMAILJS_SERVICE_ID = "service_d73rlh2";
     const EMAILJS_TEMPLATE_ID = "template_l7qdsij";
 
-    if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+    if (typeof emailjs !== 'undefined') {
       emailjs.init(EMAILJS_PUBLIC_KEY);
     }
 
@@ -558,7 +585,7 @@
       return mainService === 'fall' && fallTier === 'custom';
     }
 
-    // HELPER: STRICT STEP 1 VALIDATION
+    // HELPER: STRICT STEP 1 VALIDATION FOR ACTIVE SERVICE TAB ONLY
     function isStep1SelectionValid() {
       if (mainService === 'snow') {
         if (snowType === 'monthly') {
@@ -658,7 +685,7 @@
       goToStep(4);
     }
 
-    // EMAIL VERIFICATION
+    // EMAIL VERIFICATION (LIVE EMAILJS)
     function sendVerificationCode() {
       const name = document.getElementById('fullName').value.trim();
       const phone = document.getElementById('mobileNumber').value.trim();
@@ -679,24 +706,27 @@
 
       generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-      if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: email,
-          passcode: generatedCode,
-          code: generatedCode,
-          message: `Your Frostline 6-digit verification code is: ${generatedCode}`
-        }).then(() => {
-          alert(`Verification code sent to ${email}! Check your inbox (and spam folder).`);
-        }).catch(err => {
-          console.error("EmailJS Error:", err);
-          alert(`Email service busy. Please use this instant verification code: ${generatedCode}`);
-        });
-      } else {
-        alert(`Your instant verification code for ${email} is: ${generatedCode}`);
-      }
+      const btnSend = document.getElementById('btnSendCode');
+      btnSend.disabled = true;
+      btnSend.innerText = "Sending Verification Email...";
 
-      document.getElementById('codeSection').classList.remove('hidden');
-      document.getElementById('btnSendCode').classList.add('hidden');
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: email,
+        passcode: generatedCode,
+        code: generatedCode,
+        message: `Your Frostline 6-digit verification code is: ${generatedCode}`
+      }).then(() => {
+        document.getElementById('codeSection').classList.remove('hidden');
+        btnSend.classList.add('hidden');
+        btnSend.disabled = false;
+        btnSend.innerText = "Send 6-Digit Email Verification Code ➔";
+        alert(`Verification code sent to ${email}! Please check your inbox (and spam/junk folder).`);
+      }).catch(err => {
+        console.error("EmailJS Error:", err);
+        btnSend.disabled = false;
+        btnSend.innerText = "Send 6-Digit Email Verification Code ➔";
+        alert("Unable to send verification email right now. Please double-check your email address or call/text us at (587) 598-7797.");
+      });
     }
 
     function verifyCode() {
@@ -705,26 +735,42 @@
         emailVerified = true;
         goToStep(6);
       } else {
-        alert('Invalid code. Please enter the 6-digit confirmation code.');
+        alert('Invalid code. Please enter the 6-digit confirmation code sent to your email.');
       }
     }
 
-    // PRICING & PACKAGE SELECTION LOGIC
+    // STEP 1 TAB SWITCHER & PRICING LOGIC
     function setMainService(srv) {
       mainService = srv;
-      document.getElementById('btnSnowMain').className = srv === 'snow' ? "border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-4 rounded-xl cursor-pointer";
-      document.getElementById('btnFallMain').className = srv === 'fall' ? "border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-4 rounded-xl cursor-pointer";
-      
-      document.getElementById('badgeSnow').innerText = srv === 'snow' ? 'Selected' : 'Monthly / Single';
-      document.getElementById('badgeSnow').className = srv === 'snow' ? 'text-xs font-bold text-sky-600' : 'text-xs text-slate-400';
-      document.getElementById('badgeFall').innerText = srv === 'fall' ? 'Selected' : 'One-Time';
-      document.getElementById('badgeFall').className = srv === 'fall' ? 'text-xs font-bold text-sky-600' : 'text-xs text-slate-400';
+      const isSnow = (srv === 'snow');
 
-      document.getElementById('snowSubOptions').style.display = srv === 'snow' ? 'block' : 'none';
-      document.getElementById('fallSubOptions').style.display = srv === 'fall' ? 'block' : 'none';
+      // Update Segmented Toggle Tab Styling
+      const tabSnow = document.getElementById('tabSnow');
+      const tabFall = document.getElementById('tabFall');
+      const subTabSnow = document.getElementById('subTabSnow');
+      const subTabFall = document.getElementById('subTabFall');
 
-      document.getElementById('snowPropDetails').style.display = srv === 'snow' ? 'block' : 'none';
-      document.getElementById('fallPropDetails').style.display = srv === 'fall' ? 'block' : 'none';
+      tabSnow.setAttribute('aria-selected', isSnow ? 'true' : 'false');
+      tabFall.setAttribute('aria-selected', !isSnow ? 'true' : 'false');
+
+      if (isSnow) {
+        tabSnow.className = "py-3 px-2 rounded-lg font-extrabold text-xs transition-all flex flex-col items-center justify-center gap-0.5 bg-sky-600 text-white shadow-sm";
+        subTabSnow.className = "text-[10px] font-medium text-sky-100";
+        tabFall.className = "py-3 px-2 rounded-lg font-extrabold text-xs transition-all flex flex-col items-center justify-center gap-0.5 text-slate-600 hover:text-slate-900";
+        subTabFall.className = "text-[10px] font-medium text-slate-400";
+      } else {
+        tabFall.className = "py-3 px-2 rounded-lg font-extrabold text-xs transition-all flex flex-col items-center justify-center gap-0.5 bg-sky-600 text-white shadow-sm";
+        subTabFall.className = "text-[10px] font-medium text-sky-100";
+        tabSnow.className = "py-3 px-2 rounded-lg font-extrabold text-xs transition-all flex flex-col items-center justify-center gap-0.5 text-slate-600 hover:text-slate-900";
+        subTabSnow.className = "text-[10px] font-medium text-slate-400";
+      }
+
+      // Strictly show ONLY the active service options in Step 1 and Step 2
+      document.getElementById('snowSubOptions').classList.toggle('hidden', !isSnow);
+      document.getElementById('fallSubOptions').classList.toggle('hidden', isSnow);
+
+      document.getElementById('snowPropDetails').classList.toggle('hidden', !isSnow);
+      document.getElementById('fallPropDetails').classList.toggle('hidden', isSnow);
 
       updateStep1ValidationUI();
       calcTotal();
@@ -734,7 +780,7 @@
       snowType = type;
       document.getElementById('optMonthly').className = type === 'monthly' ? "border-2 border-sky-600 bg-sky-50/70 p-3.5 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-3.5 rounded-xl cursor-pointer";
       document.getElementById('optOnDemand').className = type === 'ondemand' ? "border-2 border-sky-600 bg-sky-50/70 p-3.5 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-3.5 rounded-xl cursor-pointer";
-      document.getElementById('plansSection').style.display = type === 'monthly' ? 'block' : 'none';
+      document.getElementById('plansSection').classList.toggle('hidden', type !== 'monthly');
 
       const suffix = type === 'monthly' ? '/mo' : '/visit';
       document.getElementById('lblCorner').innerText = `Corner City Sidewalk (+$30${suffix})`;
@@ -798,7 +844,7 @@
     function calcTotal() {
       const bottomBar = document.getElementById('bottomBar');
 
-      // Hide bottomBar on confirmation screen (Step 7), when no valid tier is chosen yet, or when Over 20 Bags custom quote is active
+      // Hide bottomBar on confirmation screen (Step 7), when no valid tier is chosen for the active tab, or when Over 20 Bags custom quote is active
       if (currentStep === 7 || !isStep1SelectionValid() || isCustomQuoteFlow()) {
         bottomBar.classList.add('hidden');
         document.getElementById('displayTotal').innerText = "$0.00";
@@ -940,14 +986,12 @@
       }
 
       // Send Owner Notification via EmailJS
-      if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
-        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-          to_email: "frostlinesnowservices@gmail.com",
-          code: "NEW BOOKING",
-          passcode: "NEW BOOKING",
-          message: `NEW FROSTLINE SUBMISSION!\n\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${safeAddress}\n\nService: ${serviceDetails}\nTotal Quoted: ${safeTotal}\nPayment Method: ${isZeroOrMissing ? 'CUSTOM QUOTE REVIEW' : paymentMethod.toUpperCase()}\nStart Date: ${startDate}\nEnd Date: ${endDate}\nNotes: ${notes}\nLegal Waiver: AGREED & TIMESTAMPED (${new Date().toLocaleString()})`
-        });
-      }
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        to_email: "frostlinesnowservices@gmail.com",
+        code: "NEW BOOKING",
+        passcode: "NEW BOOKING",
+        message: `NEW FROSTLINE SUBMISSION!\n\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${safeAddress}\n\nService: ${serviceDetails}\nTotal Quoted: ${safeTotal}\nPayment Method: ${isZeroOrMissing ? 'CUSTOM QUOTE REVIEW' : paymentMethod.toUpperCase()}\nStart Date: ${startDate}\nEnd Date: ${endDate}\nNotes: ${notes}\nLegal Waiver: AGREED & TIMESTAMPED (${new Date().toLocaleString()})`
+      });
 
       goToStep(7);
     }
