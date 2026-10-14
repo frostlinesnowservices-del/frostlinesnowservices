@@ -97,7 +97,7 @@
 
         <div onclick="setMainService('fall')" id="btnFallMain" class="border-2 border-slate-200 p-4 rounded-xl cursor-pointer">
           <div class="flex items-center justify-between">
-            <span class="font-bold text-slate-900 text-sm">🍂 Fall Cleanup</span>
+            <span class="font-bold text-slate-900 text-sm">🍂 Fall Leaf Cleanup & Bagging</span>
             <span class="text-xs text-slate-400">One-Time</span>
           </div>
         </div>
@@ -146,6 +146,36 @@
         </div>
       </div>
 
+      <!-- FALL CLEANUP OPTIONS -->
+      <div id="fallSubOptions" class="space-y-3 pt-2 hidden">
+        <h3 class="text-xs font-bold text-slate-500 uppercase">Leaf Raking & Bagging Packages</h3>
+        <p class="text-[11px] text-slate-500 italic">Note: Includes raking, cleanup, and lawn bagging.</p>
+        
+        <div onclick="setFallTier('small', 130)" id="fallSmall" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
+          <div>
+            <span class="font-bold text-xs text-slate-900 block">Small Yard (~Up to 10 bags)</span>
+            <span class="text-[10px] text-slate-500">Light leaf cleanup & bagging</span>
+          </div>
+          <span class="font-black text-sm">$130</span>
+        </div>
+
+        <div onclick="setFallTier('medium', 180)" id="fallMedium" class="border-2 border-sky-600 bg-sky-50/70 p-3 rounded-xl cursor-pointer flex justify-between items-center">
+          <div>
+            <span class="font-bold text-xs text-slate-900 block">Medium Yard (~10 to 20 bags) ⭐</span>
+            <span class="text-[10px] text-slate-500">Standard Edmonton yard clean</span>
+          </div>
+          <span class="font-black text-sm text-sky-700">$180</span>
+        </div>
+
+        <div onclick="setFallTier('large', 250)" id="fallLarge" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
+          <div>
+            <span class="font-bold text-xs text-slate-900 block">Large Yard (~20+ bags / Heavy)</span>
+            <span class="text-[10px] text-slate-500">Heavy leaf density / large property</span>
+          </div>
+          <span class="font-black text-sm">$250</span>
+        </div>
+      </div>
+
       <div class="flex gap-2 pt-2">
         <button onclick="goToStep(2)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
         <button onclick="goToStep(4)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Property Details ➔</button>
@@ -156,47 +186,70 @@
     <div id="step4" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
       <div>
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">Property Specifications</h2>
-        <p class="text-xs text-slate-500">Customize clearing areas and driveway sizing.</p>
+        <p class="text-xs text-slate-500">Customize clearing areas and access details.</p>
       </div>
 
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Driveway Capacity (Cars)</label>
-        <div class="grid grid-cols-5 gap-2">
-          <button onclick="setCars(1)" id="car1" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">1</button>
-          <button onclick="setCars(2)" id="car2" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-sky-600 bg-sky-50 text-sky-700">2</button>
-          <button onclick="setCars(3)" id="car3" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">3</button>
-          <button onclick="setCars(4)" id="car4" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">4</button>
-          <button onclick="setCars(5)" id="car5" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">5+</button>
+      <!-- SNOW SPECIFIC QUESTIONS (HIDDEN IF FALL CLEANUP) -->
+      <div id="snowPropDetails" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Driveway Capacity (Cars)</label>
+          <div class="grid grid-cols-5 gap-2">
+            <button onclick="setCars(1)" id="car1" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">1</button>
+            <button onclick="setCars(2)" id="car2" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-sky-600 bg-sky-50 text-sky-700">2</button>
+            <button onclick="setCars(3)" id="car3" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">3</button>
+            <button onclick="setCars(4)" id="car4" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">4</button>
+            <button onclick="setCars(5)" id="car5" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">5+</button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Clear Snow From These Areas</label>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200">
+              <input type="checkbox" checked disabled class="rounded text-sky-600">
+              <span class="font-medium">Front Walks & Steps (Included)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+              <input type="checkbox" id="chkCorner" onchange="calcTotal()" class="rounded text-sky-600">
+              <span class="font-medium">Corner City Sidewalk (+$30/mo)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+              <input type="checkbox" id="chkSide" onchange="calcTotal()" class="rounded text-sky-600">
+              <span class="font-medium">Side Path (+$15/mo)</span>
+            </label>
+            <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
+              <input type="checkbox" id="chkDeck" onchange="calcTotal()" class="rounded text-sky-600">
+              <span class="font-medium">Deck / Patio (+$25/mo)</span>
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Add Ice Melt Treatment?</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="setIceMelt(true)" id="btnIceYes" class="py-2.5 border-2 border-sky-600 bg-sky-50 text-sky-700 font-bold rounded-xl text-xs">Yes (+$20/mo)</button>
+            <button onclick="setIceMelt(false)" id="btnIceNo" class="py-2.5 border-2 border-slate-200 text-slate-600 font-bold rounded-xl text-xs">No</button>
+          </div>
         </div>
       </div>
 
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Clear Snow From These Areas</label>
-        <div class="space-y-2 text-xs">
-          <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200">
-            <input type="checkbox" checked disabled class="rounded text-sky-600">
-            <span class="font-medium">Front Walks & Steps (Included)</span>
-          </label>
-          <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-            <input type="checkbox" id="chkCorner" onchange="calcTotal()" class="rounded text-sky-600">
-            <span class="font-medium">Corner City Sidewalk (+$30/mo)</span>
-          </label>
-          <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-            <input type="checkbox" id="chkSide" onchange="calcTotal()" class="rounded text-sky-600">
-            <span class="font-medium">Side Path (+$15/mo)</span>
-          </label>
-          <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
-            <input type="checkbox" id="chkDeck" onchange="calcTotal()" class="rounded text-sky-600">
-            <span class="font-medium">Deck / Patio (+$25/mo)</span>
-          </label>
+      <!-- FALL CLEANUP SPECIFIC QUESTIONS (SHOWN IF FALL CLEANUP) -->
+      <div id="fallPropDetails" class="space-y-4 hidden">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Are there large mature trees on property?</label>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="setFallTrees(true)" id="btnTreesYes" class="py-2.5 border-2 border-sky-600 bg-sky-50 text-sky-700 font-bold rounded-xl text-xs">Yes (Heavy Leaf Area)</button>
+            <button onclick="setFallTrees(false)" id="btnTreesNo" class="py-2.5 border-2 border-slate-200 text-slate-600 font-bold rounded-xl text-xs">No (Moderate)</button>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Add Ice Melt Treatment?</label>
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="setIceMelt(true)" id="btnIceYes" class="py-2.5 border-2 border-sky-600 bg-sky-50 text-sky-700 font-bold rounded-xl text-xs">Yes (+$20/mo)</button>
-          <button onclick="setIceMelt(false)" id="btnIceNo" class="py-2.5 border-2 border-slate-200 text-slate-600 font-bold rounded-xl text-xs">No</button>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Backyard Gate / Access Width</label>
+          <select id="gateWidth" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500">
+            <option value="standard">Standard Gate (36"+ width)</option>
+            <option value="narrow">Narrow Gate (&lt;36" width)</option>
+            <option value="open">Open / No Gate Needed</option>
+          </select>
         </div>
       </div>
 
@@ -277,10 +330,10 @@
 
         <div onclick="setPaymentMethod('stripe')" id="payStripe" class="border-2 border-slate-200 p-4 rounded-xl cursor-pointer">
           <div class="flex justify-between items-center mb-1">
-            <span class="font-bold text-sm text-slate-900">💳 Credit / Debit Card</span>
-            <span class="text-xs text-slate-400">Secure Stripe</span>
+            <span class="font-bold text-sm text-slate-900">💳 Credit / Debit Card (Visa, MC, Debit)</span>
+            <span class="text-xs text-slate-400">Secure Online</span>
           </div>
-          <p class="text-xs text-slate-500">Instant digital card authorization.</p>
+          <p class="text-xs text-slate-600 mt-1">Pay safely using any major credit or debit card. Your transaction is securely encrypted and an instant receipt is emailed immediately upon completion.</p>
         </div>
       </div>
 
@@ -335,6 +388,8 @@
     let snowType = 'monthly'; // 'monthly' or 'ondemand'
     let planTier = 'premium'; // 'standard', 'premium', 'express'
     let planBasePrice = 230;
+    let fallTierPrice = 180;  // Default fall tier price
+    let fallTrees = false;
     let carCount = 2;
     let iceMeltAdded = true;
     let paymentMethod = 'etransfer';
@@ -419,9 +474,15 @@
     function setMainService(srv) {
       mainService = srv;
       document.getElementById('btnSnowMain').className = srv === 'snow' ? "border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-4 rounded-xl cursor-pointer";
-      document.getElementById('btnFallMain').className = srv === 'fall' ? "border-2 border-amber-500 bg-amber-50/70 p-4 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-4 rounded-xl cursor-pointer";
+      document.getElementById('btnFallMain').className = srv === 'fall' ? "border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-4 rounded-xl cursor-pointer";
       
       document.getElementById('snowSubOptions').style.display = srv === 'snow' ? 'block' : 'none';
+      document.getElementById('fallSubOptions').style.display = srv === 'fall' ? 'block' : 'none';
+
+      // Toggle Step 4 Property Questions based on Service
+      document.getElementById('snowPropDetails').style.display = srv === 'snow' ? 'block' : 'none';
+      document.getElementById('fallPropDetails').style.display = srv === 'fall' ? 'block' : 'none';
+
       calcTotal();
     }
 
@@ -441,6 +502,21 @@
       });
       document.getElementById(`plan${tier.charAt(0).toUpperCase() + tier.slice(1)}`).className = "border-2 border-sky-600 bg-sky-50/70 p-3 rounded-xl cursor-pointer flex justify-between items-center";
       calcTotal();
+    }
+
+    function setFallTier(tier, price) {
+      fallTierPrice = price;
+      ['small', 'medium', 'large'].forEach(t => {
+        document.getElementById(`fall${t.charAt(0).toUpperCase() + t.slice(1)}`).className = "border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center";
+      });
+      document.getElementById(`fall${tier.charAt(0).toUpperCase() + tier.slice(1)}`).className = "border-2 border-sky-600 bg-sky-50/70 p-3 rounded-xl cursor-pointer flex justify-between items-center";
+      calcTotal();
+    }
+
+    function setFallTrees(yesNo) {
+      fallTrees = yesNo;
+      document.getElementById('btnTreesYes').className = yesNo ? "py-2.5 border-2 border-sky-600 bg-sky-50 text-sky-700 font-bold rounded-xl text-xs" : "py-2.5 border-2 border-slate-200 text-slate-600 font-bold rounded-xl text-xs";
+      document.getElementById('btnTreesNo').className = !yesNo ? "py-2.5 border-2 border-sky-600 bg-sky-50 text-sky-700 font-bold rounded-xl text-xs" : "py-2.5 border-2 border-slate-200 text-slate-600 font-bold rounded-xl text-xs";
     }
 
     function setCars(num) {
@@ -469,7 +545,7 @@
       let cycle = '/ month';
 
       if (mainService === 'fall') {
-        total = 160;
+        total = fallTierPrice;
         cycle = ' total';
       } else if (snowType === 'ondemand') {
         total = 65 + ((carCount - 1) * 10);
@@ -493,7 +569,7 @@
       const total = document.getElementById('displayTotal').innerText;
 
       document.getElementById('confTotal').innerText = total + " " + document.getElementById('displayCycle').innerText;
-      document.getElementById('confPayInstructions').innerText = paymentMethod === 'etransfer' ? "e-Transfer to frostlinesnowservices@gmail.com" : "Credit Card Payment link sent to email.";
+      document.getElementById('confPayInstructions').innerText = paymentMethod === 'etransfer' ? "e-Transfer to frostlinesnowservices@gmail.com" : "Credit/Debit Card payment processed securely online.";
 
       if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
