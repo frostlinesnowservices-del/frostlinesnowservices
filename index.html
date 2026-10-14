@@ -121,25 +121,28 @@
 
         <!-- PLANS (ONLY FOR MONTHLY) -->
         <div id="plansSection" class="space-y-2 pt-2">
-          <h3 class="text-xs font-bold text-slate-500 uppercase">Select Plan Tier</h3>
+          <h3 class="text-xs font-bold text-slate-500 uppercase">Select Plan Tier & Dispatch Speed</h3>
+          
           <div onclick="setPlanTier('standard', 180)" id="planStandard" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
             <div>
               <span class="font-bold text-xs text-slate-900 block">Standard Plan</span>
-              <span class="text-[10px] text-slate-500">24-hr clearing post-storm</span>
+              <span class="text-[10px] text-slate-500 font-medium">Cleared within 24 hours post-storm</span>
             </div>
             <span class="font-black text-sm">$180/mo</span>
           </div>
+
           <div onclick="setPlanTier('premium', 230)" id="planPremium" class="border-2 border-sky-600 bg-sky-50/70 p-3 rounded-xl cursor-pointer flex justify-between items-center">
             <div>
               <span class="font-bold text-xs text-slate-900 block">Premium Plan ⭐</span>
-              <span class="text-[10px] text-slate-500">12-hr priority dispatch</span>
+              <span class="text-[10px] text-slate-600 font-semibold">Cleared within 12 hours post-storm</span>
             </div>
             <span class="font-black text-sm text-sky-700">$230/mo</span>
           </div>
+
           <div onclick="setPlanTier('express', 290)" id="planExpress" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
             <div>
-              <span class="font-bold text-xs text-slate-900 block">Express VIP</span>
-              <span class="text-[10px] text-slate-500">&lt;6-hr ultra priority</span>
+              <span class="font-bold text-xs text-slate-900 block">Express VIP (Top Priority)</span>
+              <span class="text-[10px] text-slate-500 font-medium">Cleared within &lt;6 hours post-storm</span>
             </div>
             <span class="font-black text-sm">$290/mo</span>
           </div>
@@ -149,11 +152,11 @@
       <!-- FALL CLEANUP OPTIONS -->
       <div id="fallSubOptions" class="space-y-3 pt-2 hidden">
         <h3 class="text-xs font-bold text-slate-500 uppercase">Leaf Raking & Bagging Packages</h3>
-        <p class="text-[11px] text-slate-500 italic">Note: Includes raking, cleanup, and lawn bagging.</p>
+        <p class="text-[11px] text-slate-500 italic">Includes thorough leaf raking, lawn cleanup, and bagging.</p>
         
         <div onclick="setFallTier('small', 130)" id="fallSmall" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
           <div>
-            <span class="font-bold text-xs text-slate-900 block">Small Yard (~Up to 10 bags)</span>
+            <span class="font-bold text-xs text-slate-900 block">Small Yard (1 – 10 Bags)</span>
             <span class="text-[10px] text-slate-500">Light leaf cleanup & bagging</span>
           </div>
           <span class="font-black text-sm">$130</span>
@@ -161,15 +164,15 @@
 
         <div onclick="setFallTier('medium', 180)" id="fallMedium" class="border-2 border-sky-600 bg-sky-50/70 p-3 rounded-xl cursor-pointer flex justify-between items-center">
           <div>
-            <span class="font-bold text-xs text-slate-900 block">Medium Yard (~10 to 20 bags) ⭐</span>
-            <span class="text-[10px] text-slate-500">Standard Edmonton yard clean</span>
+            <span class="font-bold text-xs text-slate-900 block">Medium Yard (10 – 15 Bags) ⭐</span>
+            <span class="text-[10px] text-slate-500">Standard Edmonton yard cleanup</span>
           </div>
           <span class="font-black text-sm text-sky-700">$180</span>
         </div>
 
         <div onclick="setFallTier('large', 250)" id="fallLarge" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
           <div>
-            <span class="font-bold text-xs text-slate-900 block">Large Yard (~20+ bags / Heavy)</span>
+            <span class="font-bold text-xs text-slate-900 block">Large Yard (15 – 20+ Bags)</span>
             <span class="text-[10px] text-slate-500">Heavy leaf density / large property</span>
           </div>
           <span class="font-black text-sm">$250</span>
