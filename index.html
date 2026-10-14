@@ -148,32 +148,32 @@
         
         <div onclick="setFallTier('small', 130)" id="fallSmall" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
           <div>
-            <span class="font-bold text-xs text-slate-900 block">Small Yard (1 – 10 Bags)</span>
-            <span class="text-[10px] text-slate-500">Light leaf cleanup & bagging</span>
+            <span class="font-bold text-xs text-slate-900 block">Small Yard / Townhouse</span>
+            <span class="text-[10px] text-slate-500">Front & back yard light cleanup</span>
           </div>
           <span class="font-black text-sm">$130</span>
         </div>
 
-        <div onclick="setFallTier('medium', 180)" id="fallMedium" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
+        <div onclick="setFallTier('medium', 150)" id="fallMedium" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
           <div>
-            <span class="font-bold text-xs text-slate-900 block">Medium Yard (11 – 15 Bags) ⭐</span>
-            <span class="text-[10px] text-slate-500">Standard Edmonton yard cleanup</span>
+            <span class="font-bold text-xs text-slate-900 block">Medium Yard (Standard Lot) ⭐</span>
+            <span class="text-[10px] text-slate-500">Standard Edmonton residential lot</span>
           </div>
-          <span class="font-black text-sm">$180</span>
+          <span class="font-black text-sm">$150</span>
         </div>
 
-        <div onclick="setFallTier('large', 250)" id="fallLarge" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
+        <div onclick="setFallTier('large', 220)" id="fallLarge" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
           <div>
-            <span class="font-bold text-xs text-slate-900 block">Large Yard (16 – 20 Bags)</span>
-            <span class="text-[10px] text-slate-500">Heavy leaf density / large property</span>
+            <span class="font-bold text-xs text-slate-900 block">Large Yard / Corner Lot</span>
+            <span class="text-[10px] text-slate-500">Heavy trees / larger property</span>
           </div>
-          <span class="font-black text-sm">$250</span>
+          <span class="font-black text-sm">$220</span>
         </div>
 
         <!-- 4TH SELECTABLE OPTION: OVER 20 BAGS / CUSTOM LARGE PROPERTY -->
         <div onclick="setFallTier('custom', 0)" id="fallCustom" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
           <div>
-            <span class="font-bold text-xs text-slate-900 block">Over 20 Bags / Custom Large Property</span>
+            <span class="font-bold text-xs text-slate-900 block">Estate / Custom Property</span>
             <span class="text-[10px] text-slate-500">Skip payment now — submit for custom quote review</span>
           </div>
           <span class="font-bold text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded border border-amber-200">Custom Quote</span>
@@ -844,7 +844,7 @@
     function calcTotal() {
       const bottomBar = document.getElementById('bottomBar');
 
-      // Hide bottomBar on confirmation screen (Step 7), when no valid tier is chosen for the active tab, or when Over 20 Bags custom quote is active
+      // Hide bottomBar on confirmation screen (Step 7), when no valid tier is chosen for the active tab, or when Estate custom quote is active
       if (currentStep === 7 || !isStep1SelectionValid() || isCustomQuoteFlow()) {
         bottomBar.classList.add('hidden');
         document.getElementById('displayTotal').innerText = "$0.00";
@@ -981,7 +981,7 @@
         serviceDetails = `Snow Service (${snowType === 'monthly' ? 'Monthly - ' + planTier.toUpperCase() : 'On-Demand Visit'}) | Driveway: ${carCount} cars | Extras: ${extras.join(', ') || 'None'}`;
       } else {
         const gate = document.getElementById('gateWidth').value;
-        const packageLabel = isCustom ? "OVER 20 BAGS / CUSTOM LARGE PROPERTY" : `${fallTier.toUpperCase()} package`;
+        const packageLabel = isCustom ? "ESTATE / CUSTOM PROPERTY" : `${fallTier.toUpperCase()} package ($${fallTierPrice})`;
         serviceDetails = `Fall Leaf Cleanup (${packageLabel}) | Mature Trees: ${fallTrees ? 'Yes' : 'No'} | Gate: ${gate}`;
       }
 
