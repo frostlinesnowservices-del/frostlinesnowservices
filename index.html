@@ -24,98 +24,71 @@
           <span class="text-[10px] font-semibold text-sky-400 uppercase tracking-wider block">Snow & Property Services</span>
         </div>
       </div>
-      <span class="text-xs font-semibold px-2.5 py-1 bg-slate-800 text-sky-300 rounded-full border border-slate-700">Edmonton & Area</span>
+      <div class="text-right flex flex-col items-end gap-1">
+        <a href="tel:5875987797" class="text-xs font-bold px-2.5 py-1 bg-sky-600 hover:bg-sky-500 text-white rounded-full transition flex items-center gap-1 shadow-sm">
+          📞 (587) 598-7797
+        </a>
+        <span class="text-[10px] font-medium text-slate-400">Edmonton & Area</span>
+      </div>
     </div>
   </header>
 
+  <!-- TRUST BANNER -->
+  <div class="bg-slate-800 text-slate-300 text-[11px] font-medium py-1.5 px-4 text-center border-b border-slate-700">
+    Locally Owned in Edmonton • Reliable Dispatch • Instant Online Quote
+  </div>
+
   <!-- STEP PROGRESS BAR -->
-  <div class="bg-white border-b border-slate-200 sticky top-[57px] z-20 shadow-sm">
+  <div id="progressBarContainer" class="bg-white border-b border-slate-200 sticky top-[62px] z-20 shadow-sm">
     <div class="max-w-md mx-auto px-4 py-2 flex items-center justify-between text-xs font-bold text-slate-700">
-      <span id="stepTitle">Step 1: Email Verification</span>
-      <span id="stepCounter" class="text-sky-600">1 / 9</span>
+      <span id="stepTitle">Step 1: Select Service</span>
+      <span id="stepCounter" class="text-sky-600">1 / 6</span>
     </div>
   </div>
 
   <!-- MAIN APP CONTAINER -->
   <main class="max-w-md mx-auto px-4 py-6 w-full flex-grow mb-28">
 
-    <!-- STEP 1: EMAIL VERIFICATION -->
+    <!-- STEP 1: SERVICE SELECTION -->
     <div id="step1" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4">
       <div>
-        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Verify Your Email</h2>
-        <p class="text-xs text-slate-500">Enter your email to receive a 6-digit confirmation code.</p>
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Email Address</label>
-        <input type="email" id="emailInput" placeholder="your.email@example.com" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
-      </div>
-      <button onclick="sendVerificationCode()" id="btnSendCode" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-sm">
-        Send Verification Code ➔
-      </button>
-
-      <div id="codeSection" class="hidden space-y-3 pt-3 border-t border-slate-100">
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">6-Digit Code</label>
-          <input type="text" id="codeInput" maxlength="6" placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-center tracking-widest text-lg font-bold focus:ring-2 focus:ring-sky-500 focus:outline-none">
-        </div>
-        <button onclick="verifyCode()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-sm">
-          Verify & Continue ➔
-        </button>
-      </div>
-    </div>
-
-    <!-- STEP 2: ADDRESS -->
-    <div id="step2" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
-      <div>
-        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Property Location</h2>
-        <p class="text-xs text-slate-500">Provide your street address in Edmonton & area.</p>
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Street Address</label>
-        <input type="text" id="addressInput" placeholder="e.g., 2124 Haddow Dr NW" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
-      </div>
-      <div class="flex gap-2">
-        <button onclick="goToStep(1)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="goToStep(3)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Select Service ➔</button>
-      </div>
-    </div>
-
-    <!-- STEP 3: SERVICE SELECTION -->
-    <div id="step3" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
-      <div>
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">Select Service</h2>
-        <p class="text-xs text-slate-500">Choose the type of service required for your property.</p>
+        <p class="text-xs text-slate-500">Choose your service below for an instant price calculation.</p>
       </div>
 
       <div class="space-y-3">
         <div onclick="setMainService('snow')" id="btnSnowMain" class="border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer">
           <div class="flex items-center justify-between">
             <span class="font-bold text-slate-900 text-sm">❄️ Snow Services</span>
-            <span class="text-xs font-bold text-sky-600">Selected</span>
+            <span id="badgeSnow" class="text-xs font-bold text-sky-600">Selected</span>
           </div>
         </div>
 
         <div onclick="setMainService('fall')" id="btnFallMain" class="border-2 border-slate-200 p-4 rounded-xl cursor-pointer">
           <div class="flex items-center justify-between">
             <span class="font-bold text-slate-900 text-sm">🍂 Fall Leaf Cleanup & Bagging</span>
-            <span class="text-xs text-slate-400">One-Time</span>
+            <span id="badgeFall" class="text-xs text-slate-400">One-Time</span>
           </div>
         </div>
       </div>
 
       <!-- SNOW OPTIONS -->
       <div id="snowSubOptions" class="space-y-3 pt-2">
-        <h3 class="text-xs font-bold text-slate-500 uppercase">Snow Service Type</h3>
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-bold text-slate-500 uppercase">Snow Service Type</h3>
+          <span class="text-[10px] text-sky-700 bg-sky-50 px-2 py-0.5 rounded font-semibold">Auto-dispatched at 2cm+ snow</span>
+        </div>
+
         <div onclick="setSnowType('monthly')" id="optMonthly" class="border-2 border-sky-600 bg-sky-50/70 p-3.5 rounded-xl cursor-pointer">
           <div class="flex justify-between items-center">
-            <span class="font-bold text-sm text-slate-900">Monthly Contract</span>
+            <span class="font-bold text-sm text-slate-900">Monthly Contract (Unlimited Visits)</span>
             <span class="text-xs font-bold text-sky-600">From $180/mo</span>
           </div>
         </div>
         <div onclick="setSnowType('ondemand')" id="optOnDemand" class="border-2 border-slate-200 p-3.5 rounded-xl cursor-pointer">
           <div class="flex justify-between items-center">
-            <span class="font-bold text-sm text-slate-900">On-Demand Visit</span>
-            <span class="text-xs font-bold text-slate-600">$65 / visit</span>
+            <span class="font-bold text-sm text-slate-900">On-Demand Single Visit</span>
+            <span class="text-xs font-bold text-slate-600">From $65 / visit</span>
           </div>
         </div>
 
@@ -123,26 +96,26 @@
         <div id="plansSection" class="space-y-2 pt-2">
           <h3 class="text-xs font-bold text-slate-500 uppercase">Select Plan Tier & Dispatch Speed</h3>
           
-          <div onclick="setPlanTier('standard', 180)" id="planStandard" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
+          <div onclick="setPlanTier('standard', 180)" id="planStandard" class="border-2 border-sky-600 bg-sky-50/70 p-3 rounded-xl cursor-pointer flex justify-between items-center">
             <div>
               <span class="font-bold text-xs text-slate-900 block">Standard Plan</span>
-              <span class="text-[10px] text-slate-500 font-medium">Cleared within 24 hours post-storm</span>
+              <span class="text-[10px] text-slate-600 font-medium">Cleared within 24 hours post-storm</span>
             </div>
-            <span class="font-black text-sm">$180/mo</span>
+            <span class="font-black text-sm text-sky-700">$180/mo</span>
           </div>
 
-          <div onclick="setPlanTier('premium', 230)" id="planPremium" class="border-2 border-sky-600 bg-sky-50/70 p-3 rounded-xl cursor-pointer flex justify-between items-center">
+          <div onclick="setPlanTier('premium', 230)" id="planPremium" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
             <div>
               <span class="font-bold text-xs text-slate-900 block">Premium Plan ⭐</span>
-              <span class="text-[10px] text-slate-600 font-semibold">Cleared within 12 hours post-storm</span>
+              <span class="text-[10px] text-slate-500 font-semibold">Cleared within 12 hours post-storm</span>
             </div>
-            <span class="font-black text-sm text-sky-700">$230/mo</span>
+            <span class="font-black text-sm">$230/mo</span>
           </div>
 
           <div onclick="setPlanTier('express', 290)" id="planExpress" class="border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center">
             <div>
               <span class="font-bold text-xs text-slate-900 block">Express VIP (Top Priority)</span>
-              <span class="text-[10px] text-slate-500 font-medium">Cleared within &lt;6 hours post-storm</span>
+              <span class="text-[10px] text-slate-500 font-medium">Cleared within 6 hours post-storm</span>
             </div>
             <span class="font-black text-sm">$290/mo</span>
           </div>
@@ -177,17 +150,20 @@
           </div>
           <span class="font-black text-sm">$250</span>
         </div>
-        <p class="text-[10px] text-slate-400 text-center pt-1">* Over 20 bags? Contact us for a custom quote.</p>
+        <p class="text-[11px] text-slate-500 text-center pt-1">
+          * Over 20 bags? Call/text <a href="tel:5875987797" class="text-sky-600 font-bold underline">(587) 598-7797</a> or <a href="mailto:frostlinesnowservices@gmail.com" class="text-sky-600 font-bold underline">email us</a> for a custom quote.
+        </p>
       </div>
 
-      <div class="flex gap-2 pt-2">
-        <button onclick="goToStep(2)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="goToStep(4)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Property Details ➔</button>
+      <div class="pt-2">
+        <button onclick="goToStep(2)" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-sm transition shadow-sm">
+          Customize Property Details ➔
+        </button>
       </div>
     </div>
 
-    <!-- STEP 4: PROPERTY DETAILS -->
-    <div id="step4" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
+    <!-- STEP 2: PROPERTY DETAILS -->
+    <div id="step2" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
       <div>
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">Property Specifications</h2>
         <p class="text-xs text-slate-500">Customize clearing areas and access details.</p>
@@ -196,7 +172,8 @@
       <!-- SNOW SPECIFIC QUESTIONS (HIDDEN IF FALL CLEANUP) -->
       <div id="snowPropDetails" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Driveway Capacity (Cars)</label>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Driveway Capacity (Cars)</label>
+          <p class="text-[11px] text-slate-400 mb-2">1–2 car driveway included in base monthly plan (+$20/mo per extra stall).</p>
           <div class="grid grid-cols-5 gap-2">
             <button onclick="setCars(1)" id="car1" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-slate-200">1</button>
             <button onclick="setCars(2)" id="car2" class="car-btn py-2.5 rounded-xl border-2 font-bold text-xs border-sky-600 bg-sky-50 text-sky-700">2</button>
@@ -206,24 +183,24 @@
           </div>
         </div>
 
-        <div>
+        <div id="monthlyAddonsSection">
           <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Clear Snow From These Areas</label>
           <div class="space-y-2 text-xs">
             <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200">
               <input type="checkbox" checked disabled class="rounded text-sky-600">
-              <span class="font-medium">Front Walks & Steps (Included)</span>
+              <span class="font-medium">Driveway, Front Walks & Steps (Included)</span>
             </label>
             <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
               <input type="checkbox" id="chkCorner" onchange="calcTotal()" class="rounded text-sky-600">
-              <span class="font-medium">Corner City Sidewalk (+$30/mo)</span>
+              <span class="font-medium" id="lblCorner">Corner City Sidewalk (+$30/mo)</span>
             </label>
             <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
               <input type="checkbox" id="chkSide" onchange="calcTotal()" class="rounded text-sky-600">
-              <span class="font-medium">Side Path (+$15/mo)</span>
+              <span class="font-medium" id="lblSide">Side Path (+$15/mo)</span>
             </label>
             <label class="flex items-center gap-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 cursor-pointer">
               <input type="checkbox" id="chkDeck" onchange="calcTotal()" class="rounded text-sky-600">
-              <span class="font-medium">Deck / Patio (+$25/mo)</span>
+              <span class="font-medium" id="lblDeck">Deck / Patio (+$25/mo)</span>
             </label>
           </div>
         </div>
@@ -231,8 +208,8 @@
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Add Ice Melt Treatment?</label>
           <div class="grid grid-cols-2 gap-2">
-            <button onclick="setIceMelt(true)" id="btnIceYes" class="py-2.5 border-2 border-sky-600 bg-sky-50 text-sky-700 font-bold rounded-xl text-xs">Yes (+$20/mo)</button>
-            <button onclick="setIceMelt(false)" id="btnIceNo" class="py-2.5 border-2 border-slate-200 text-slate-600 font-bold rounded-xl text-xs">No</button>
+            <button onclick="setIceMelt(true)" id="btnIceYes" class="py-2.5 border-2 border-slate-200 text-slate-600 font-bold rounded-xl text-xs">Yes (+$20)</button>
+            <button onclick="setIceMelt(false)" id="btnIceNo" class="py-2.5 border-2 border-sky-600 bg-sky-50 text-sky-700 font-bold rounded-xl text-xs">No</button>
           </div>
         </div>
       </div>
@@ -250,77 +227,108 @@
         <div>
           <label class="block text-xs font-bold text-slate-700 uppercase mb-2">Backyard Gate / Access Width</label>
           <select id="gateWidth" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500">
-            <option value="standard">Standard Gate (36"+ width)</option>
-            <option value="narrow">Narrow Gate (&lt;36" width)</option>
-            <option value="open">Open / No Gate Needed</option>
+            <option value="Standard Gate (36 inch+)">Standard Gate (36"+ width)</option>
+            <option value="Narrow Gate (Under 36 inch)">Narrow Gate (&lt;36" width)</option>
+            <option value="Open / No Gate Needed">Open / No Gate Needed</option>
           </select>
         </div>
       </div>
 
-      <div class="flex gap-2">
-        <button onclick="goToStep(3)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="goToStep(5)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Schedule Dates ➔</button>
+      <div class="flex gap-2 pt-2">
+        <button onclick="goToStep(1)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
+        <button onclick="goToStep(3)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Address & Notes ➔</button>
       </div>
     </div>
 
-    <!-- STEP 5: DATES -->
-    <div id="step5" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
+    <!-- STEP 3: ADDRESS & ACCESS NOTES -->
+    <div id="step3" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
+      <div>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Property Location & Notes</h2>
+        <p class="text-xs text-slate-500">Provide your service address in Edmonton & surrounding area.</p>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Street Address *</label>
+        <input type="text" id="addressInput" placeholder="e.g., 2124 Haddow Dr NW, Edmonton" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Access Notes / Gate Codes (Optional)</label>
+        <textarea id="orderNotes" rows="3" placeholder="e.g., Gate code #1234, dog in backyard, or special instructions for our crew." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none"></textarea>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="goToStep(2)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
+        <button onclick="validateStep3()" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Schedule Dates ➔</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: DATES -->
+    <div id="step4" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
       <div>
         <h2 class="text-lg font-extrabold text-slate-900 mb-1">Booking Schedule</h2>
-        <p class="text-xs text-slate-500">Select when service should start and stop.</p>
+        <p id="scheduleSubtext" class="text-xs text-slate-500">Select when your snow contract should start and end.</p>
       </div>
       <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Start Date</label>
+        <label id="lblStartDate" class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Preferred Start Date</label>
         <input type="date" id="startDate" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500">
       </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">End Date</label>
+      <div id="endDateContainer">
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Contract End Date</label>
         <input type="date" id="endDate" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500">
       </div>
       <div class="flex gap-2">
-        <button onclick="goToStep(4)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="goToStep(6)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Order Notes ➔</button>
+        <button onclick="goToStep(3)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
+        <button onclick="goToStep(5)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Contact Info ➔</button>
       </div>
     </div>
 
-    <!-- STEP 6: COMMENTS -->
+    <!-- STEP 5: ACCOUNT CONTACT & EMAIL VERIFICATION -->
+    <div id="step5" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
+      <div>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Contact & Email Verification</h2>
+        <p class="text-xs text-slate-500">Enter your contact details for dispatch text alerts and booking confirmation.</p>
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Full Name *</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Mobile Phone Number *</label>
+        <input type="tel" id="mobileNumber" placeholder="e.g., (780) 555-0199" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+      </div>
+      <div>
+        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Email Address *</label>
+        <input type="email" id="emailInput" placeholder="your.email@example.com" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+      </div>
+
+      <button onclick="sendVerificationCode()" id="btnSendCode" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-sm">
+        Send 6-Digit Email Verification Code ➔
+      </button>
+
+      <div id="codeSection" class="hidden space-y-3 pt-3 border-t border-slate-100">
+        <div class="bg-sky-50 border border-sky-200 text-sky-800 text-xs p-2.5 rounded-lg">
+          We sent a 6-digit verification code to your email. Please enter it below:
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">6-Digit Confirmation Code</label>
+          <input type="text" id="codeInput" maxlength="6" placeholder="123456" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-center tracking-widest text-lg font-bold focus:ring-2 focus:ring-sky-500 focus:outline-none">
+        </div>
+        <button onclick="verifyCode()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-sm">
+          Verify & Continue to Payment ➔
+        </button>
+        <button onclick="sendVerificationCode()" class="w-full text-slate-400 hover:text-slate-600 text-[11px] font-semibold underline py-1">
+          Didn't get it? Resend Code
+        </button>
+      </div>
+
+      <div class="pt-1">
+        <button onclick="goToStep(4)" class="w-full bg-slate-100 text-slate-700 font-bold py-3 rounded-xl text-xs">Back to Schedule</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: PAYMENT METHOD & LEGAL AGREEMENT -->
     <div id="step6" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
       <div>
-        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Order Comments</h2>
-        <p class="text-xs text-slate-500">Add access notes or gate codes for our crew (optional).</p>
-      </div>
-      <textarea id="orderNotes" rows="4" placeholder="e.g., Gate code is #1234. Please watch out for small dog in backyard." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500"></textarea>
-      <div class="flex gap-2">
-        <button onclick="goToStep(5)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="goToStep(7)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Account Info ➔</button>
-      </div>
-    </div>
-
-    <!-- STEP 7: ACCOUNT INFO -->
-    <div id="step7" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
-      <div>
-        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Account Contact</h2>
-        <p class="text-xs text-slate-500">Confirm contact details for dispatch text alerts.</p>
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Full Name</label>
-        <input type="text" id="fullName" placeholder="Enter your full name" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500">
-      </div>
-      <div>
-        <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">Mobile Phone Number</label>
-        <input type="tel" id="mobileNumber" placeholder="Enter your phone number" value="" class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3 text-sm focus:ring-2 focus:ring-sky-500">
-      </div>
-      <div class="flex gap-2">
-        <button onclick="goToStep(6)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="goToStep(8)" class="w-2/3 bg-sky-600 text-white font-bold py-3.5 rounded-xl text-xs">Payment Method ➔</button>
-      </div>
-    </div>
-
-    <!-- STEP 8: PAYMENT METHOD -->
-    <div id="step8" class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm space-y-4 hidden">
-      <div>
-        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Payment Options</h2>
-        <p class="text-xs text-slate-500">Select your preferred payment method.</p>
+        <h2 class="text-lg font-extrabold text-slate-900 mb-1">Payment & Service Agreement</h2>
+        <p class="text-xs text-slate-500">Select your preferred payment method and review the service terms.</p>
       </div>
 
       <div class="space-y-3">
@@ -330,6 +338,7 @@
             <span class="text-xs font-bold text-sky-700">Auto-Deposit</span>
           </div>
           <p class="text-xs text-slate-600">Send to: <strong>frostlinesnowservices@gmail.com</strong></p>
+          <p class="text-[11px] text-slate-500 mt-1">Please include your property street address in the e-Transfer message note.</p>
         </div>
 
         <div onclick="setPaymentMethod('card')" id="payStripe" class="border-2 border-slate-200 p-4 rounded-xl cursor-pointer">
@@ -341,43 +350,130 @@
         </div>
       </div>
 
+      <!-- MANDATORY LEGAL CHECKBOX -->
+      <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+        <label class="flex items-start gap-2.5 cursor-pointer">
+          <input type="checkbox" id="chkLegalAgree" onchange="toggleSubmitBtn()" class="mt-0.5 w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300">
+          <span class="text-[11px] text-slate-600 leading-relaxed">
+            I have read and agree to the <button type="button" onclick="openLegalModal()" class="text-sky-600 font-bold underline hover:text-sky-800">Service Agreement, Liability Waiver & Privacy Policy</button>, including the slip-and-fall liability release, hidden object waiver, and extreme weather dispatch terms. *
+          </span>
+        </label>
+      </div>
+
       <div class="flex gap-2 pt-2">
-        <button onclick="goToStep(7)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
-        <button onclick="finalizeBooking()" id="btnSubmitOrder" class="w-2/3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-md">
+        <button onclick="goToStep(5)" class="w-1/3 bg-slate-100 text-slate-700 font-bold py-3.5 rounded-xl text-xs">Back</button>
+        <button onclick="finalizeBooking()" id="btnSubmitOrder" disabled class="w-2/3 bg-slate-300 text-slate-500 cursor-not-allowed font-bold py-3.5 rounded-xl text-xs transition shadow-sm">
           Confirm Booking ➔
         </button>
       </div>
     </div>
 
-    <!-- STEP 9: SUCCESS / CONFIRMATION -->
-    <div id="step9" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-center space-y-4 hidden">
+    <!-- STEP 7: SUCCESS / CONFIRMATION -->
+    <div id="step7" class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm text-center space-y-4 hidden">
       <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto">✓</div>
       <h2 class="text-xl font-extrabold text-slate-900">Booking Submitted!</h2>
       <p class="text-xs text-slate-600 leading-relaxed">Thank you for choosing Frostline. We have received your property request and will contact you shortly to confirm schedule details.</p>
-      <div class="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 text-xs space-y-1">
+      <div class="bg-slate-50 p-4 rounded-xl text-left border border-slate-200 text-xs space-y-1.5">
+        <p><strong>Service Address:</strong> <span id="confAddress"></span></p>
         <p><strong>Total Amount:</strong> <span id="confTotal">$0.00</span></p>
         <p><strong>Payment Instructions:</strong> <span id="confPayInstructions">e-Transfer to frostlinesnowservices@gmail.com</span></p>
+        <p><strong>Questions?</strong> Call or text <a href="tel:5875987797" class="text-sky-600 font-bold underline">(587) 598-7797</a></p>
       </div>
-      <button onclick="location.reload()" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl text-xs">Done</button>
+      <button onclick="location.reload()" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl text-xs">Start Another Booking</button>
     </div>
+
+    <!-- FOOTER LINKS -->
+    <footer class="mt-8 text-center text-[11px] text-slate-400 space-y-1">
+      <p><strong>Frostline Snow & Property Services</strong> • Edmonton, AB</p>
+      <p>
+        <a href="tel:5875987797" class="hover:text-slate-600 underline">(587) 598-7797</a> • 
+        <a href="mailto:frostlinesnowservices@gmail.com" class="hover:text-slate-600 underline">frostlinesnowservices@gmail.com</a>
+      </p>
+      <p>
+        <button onclick="openLegalModal()" class="hover:text-slate-600 underline font-medium">Terms of Service, Liability Waiver & Privacy Policy</button>
+      </p>
+    </footer>
 
   </main>
 
-  <!-- STICKY BOTTOM BAR (HIDDEN BY DEFAULT ON STEPS 1 & 2) -->
-  <div id="bottomBar" class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3.5 z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+  <!-- STICKY BOTTOM BAR -->
+  <div id="bottomBar" class="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-3.5 z-30 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
     <div class="max-w-md mx-auto flex justify-between items-center">
       <div>
-        <span class="text-[10px] uppercase font-bold text-slate-400 block">Total Rate</span>
-        <span class="text-xl font-black text-slate-900" id="displayTotal">$230.00</span>
+        <span class="text-[10px] uppercase font-bold text-slate-400 block">Estimated Rate</span>
+        <span class="text-xl font-black text-slate-900" id="displayTotal">$180.00</span>
         <span class="text-xs text-slate-500" id="displayCycle">/ month</span>
       </div>
-      <span class="text-xs text-slate-400 font-medium">Auto-Calculated</span>
+      <span class="text-xs text-sky-600 bg-sky-50 px-2.5 py-1 rounded-full font-bold border border-sky-100">Instant Quote</span>
+    </div>
+  </div>
+
+  <!-- LEGAL & PRIVACY POLICY MODAL -->
+  <div id="legalModal" class="hidden fixed inset-0 bg-slate-900/75 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200 overflow-hidden">
+      <div class="p-4 bg-slate-900 text-white flex justify-between items-center">
+        <h3 class="font-extrabold text-sm">Service Agreement, Liability Waiver & Privacy Policy</h3>
+        <button onclick="closeLegalModal()" class="text-slate-400 hover:text-white text-lg font-bold px-2">✕</button>
+      </div>
+      <div class="p-5 overflow-y-auto text-xs text-slate-600 space-y-3.5 leading-relaxed">
+        <p class="font-semibold text-slate-800">By booking services with Frostline Snow & Property Services ("Frostline"), the property owner or authorized client ("Client") agrees to the following binding terms and conditions governed by the laws of the Province of Alberta:</p>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">1. Slip, Fall & Ice Hazard Limitation of Liability</h4>
+          <p>Snow clearing and de-icing reduce winter hazards but <strong>cannot eliminate all snow, ice, black ice, or slippery conditions</strong>. Due to Alberta's freeze-thaw cycles, blowing snow, compacted vehicle tracks, and extreme cold (which renders ice melt ineffective below certain temperatures), bare pavement is never guaranteed. The Client retains sole responsibility for monitoring property conditions between visits and applying sand or salt as needed. Client agrees to <strong>release, indemnify, and hold harmless Frostline</strong>, its owners, and personnel from any and all claims, lawsuits, injuries, or damages arising from slips, falls, or icy conditions on the property.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">2. Hidden Objects & Surface / Property Damage Waiver</h4>
+          <p>Prior to snowfall or leaf cleanup, Client must remove all obstacles from work areas, including extension cords, vehicle block-heater cords, garden hoses, holiday decorations, pet waste, toys, rocks, and downspouts. Frostline is <strong>not liable</strong> for damage to items concealed by snow or leaves, nor for equipment damage resulting from striking such objects. Furthermore, Frostline is not responsible for minor surface cosmetic scratches, chipping, spalling, or lifted edges on uneven concrete, asphalt, interlocking pavers, gravel, wood decks, or expansion joints.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">3. Snowfall Trigger, Dispatch Times & Extreme Weather (Force Majeure)</h4>
+          <p>Monthly contracts are triggered automatically upon <strong>2 cm or more</strong> of snowfall accumulation as recorded by Environment Canada for the Edmonton area. Selected dispatch windows (6h, 12h, or 24h) commence <strong>after the snowfall event has completely stopped</strong>. During severe blizzards, heavy snowfalls exceeding 15 cm, freezing rain, highway/road closures, equipment breakdowns, or municipal emergencies, dispatch times are estimates only and may be extended without penalty, refund, or liability, Including City of Edmonton Bylaw compliance fines caused by severe weather delays.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">4. Parked Vehicles, Locked Gates & Blocked Access</h4>
+          <p>If vehicles, bins, or locked gates obstruct the driveway or walkways when our crew arrives, Frostline will clear only the safely accessible areas (leaving a safe buffer around vehicles to prevent contact). Crews will not return to clear areas that were blocked during the scheduled dispatch unless booked as an additional On-Demand visit.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">5. City Plow Windrows & Snow Storage</h4>
+          <p>All snow cleared is piled on the Client's property (lawn edges or boulevard). Unless arranged separately, Frostline is not responsible for hauling snow off-site or clearing heavy packed ice/snow windrows pushed onto driveway aprons by City of Edmonton municipal plows after Frostline has already serviced the property.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">6. Fall Leaf Cleanup & Bagging</h4>
+          <p>Quoted leaf packages cover up to the maximum bag count selected for the tier. Properties with excessive leaf density, wet/frozen leaves, or oversized lots exceeding the selected bag limit will be notified for approval of additional bag charges prior to completion. Filled biodegradable/plastic leaf bags are stacked neatly on-site for municipal pickup unless hauling is separately arranged.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">7. Property Verification, Billing & Cancellation</h4>
+          <p>All online quotes are subject to on-site or satellite verification of lot size. If a property is larger than selected (e.g., triple driveway selected as a 2-car driveway), Frostline will notify the Client to adjust the rate or issue a full refund prior to starting service. Monthly snow contracts are billed monthly in advance. Either party may cancel a monthly contract with 14 days' written notice; no refunds are issued for partial months already in progress.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">8. Maximum Liability Cap</h4>
+          <p>To the maximum extent permitted by Alberta law, Frostline's total aggregate liability for any claim, damage, or loss arising out of or relating to this agreement shall not exceed the total amount paid by the Client to Frostline for the specific month or single visit in which the incident occurred.</p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase text-[11px] mb-1">9. Privacy Policy (Alberta PIPA Compliance)</h4>
+          <p>Frostline collects your name, property address, phone number, email address, and access notes strictly for providing quotes, dispatching crews, sending SMS/email service alerts, and processing invoices. We <strong>never sell, rent, or trade</strong> your personal data to third parties. Gate codes and access notes are shared solely with assigned field crew members and deleted upon service termination. To request data deletion or privacy inquiries, contact <a href="mailto:frostlinesnowservices@gmail.com" class="text-sky-600 underline">frostlinesnowservices@gmail.com</a> or call (587) 598-7797.</p>
+        </div>
+      </div>
+      <div class="p-4 bg-slate-50 border-t border-slate-200 flex gap-2">
+        <button onclick="acceptAndCloseModal()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl text-xs transition">
+          I Understand & Agree to Terms
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
     // --- EMAILJS CONFIGURATION ---
-    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Replace with your Public Key from EmailJS dashboard (Miraj -> Account)
+    const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Replace with your Public Key from EmailJS dashboard
     const EMAILJS_SERVICE_ID = "service_d73rlh2";
     const EMAILJS_TEMPLATE_ID = "template_l7qdsij";
 
@@ -388,14 +484,16 @@
     // STATE VARIABLES
     let currentStep = 1;
     let generatedCode = null;
+    let emailVerified = false;
     let mainService = 'snow'; // 'snow' or 'fall'
     let snowType = 'monthly'; // 'monthly' or 'ondemand'
-    let planTier = 'premium'; // 'standard', 'premium', 'express'
-    let planBasePrice = 230;
-    let fallTierPrice = 180;  // Default fall tier price (medium yard)
-    let fallTrees = false;
+    let planTier = 'standard'; // Default to $180 Standard to avoid sticker shock
+    let planBasePrice = 180;
+    let fallTier = 'medium';
+    let fallTierPrice = 180;
+    let fallTrees = true;
     let carCount = 2;
-    let iceMeltAdded = true;
+    let iceMeltAdded = false;
     let paymentMethod = 'etransfer';
 
     // DATES DEFAULT
@@ -404,40 +502,76 @@
     futureDate.setMonth(futureDate.getMonth() + 5);
     document.getElementById('endDate').valueAsDate = futureDate;
 
+    // INITIALIZE TOTAL BAR ON LOAD
+    calcTotal();
+
     // STEP NAVIGATION
     function goToStep(step) {
-      if (step === 2 && !document.getElementById('emailInput').value) {
-        alert("Please complete email verification first.");
-        return;
-      }
       currentStep = step;
-      for (let i = 1; i <= 9; i++) {
+      for (let i = 1; i <= 7; i++) {
         const el = document.getElementById(`step${i}`);
         if (el) el.classList.add('hidden');
       }
       document.getElementById(`step${step}`).classList.remove('hidden');
-      
-      document.getElementById('stepCounter').innerText = `${step} / 9`;
-      const titles = [
-        "Step 1: Email Verification", "Step 2: Property Location", "Step 3: Service Selection",
-        "Step 4: Property Details", "Step 5: Booking Schedule", "Step 6: Order Comments",
-        "Step 7: Account Details", "Step 8: Payment Method", "Confirmation"
-      ];
-      document.getElementById('stepTitle').innerText = titles[step - 1];
 
-      // Hide bottomBar on Steps 1, 2, and 9 so price isn't shown prematurely
-      if (step === 1 || step === 2 || step === 9) {
+      if (step <= 6) {
+        document.getElementById('progressBarContainer').classList.remove('hidden');
+        document.getElementById('stepCounter').innerText = `${step} / 6`;
+        const titles = [
+          "Step 1: Select Service",
+          "Step 2: Property Details",
+          "Step 3: Property Location & Notes",
+          "Step 4: Booking Schedule",
+          "Step 5: Contact & Verification",
+          "Step 6: Payment & Agreement"
+        ];
+        document.getElementById('stepTitle').innerText = titles[step - 1];
+      } else {
+        document.getElementById('progressBarContainer').classList.add('hidden');
+      }
+
+      // Hide bottomBar on confirmation screen (Step 7)
+      if (step === 7) {
         document.getElementById('bottomBar').classList.add('hidden');
       } else {
         document.getElementById('bottomBar').classList.remove('hidden');
       }
 
+      // Update Step 4 Date Labels for One-Time vs Monthly
+      const isMonthlySnow = (mainService === 'snow' && snowType === 'monthly');
+      document.getElementById('endDateContainer').style.display = isMonthlySnow ? 'block' : 'none';
+      document.getElementById('lblStartDate').innerText = isMonthlySnow ? 'Contract Start Date' : 'Preferred Service Date';
+      document.getElementById('scheduleSubtext').innerText = isMonthlySnow 
+        ? 'Select when your monthly snow contract should start and end.' 
+        : 'Select your preferred date for this one-time service visit.';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       calcTotal();
+    }
+
+    function validateStep3() {
+      const addr = document.getElementById('addressInput').value.trim();
+      if (!addr) {
+        alert("Please enter your property street address in Edmonton & area.");
+        return;
+      }
+      goToStep(4);
     }
 
     // EMAIL VERIFICATION
     function sendVerificationCode() {
+      const name = document.getElementById('fullName').value.trim();
+      const phone = document.getElementById('mobileNumber').value.trim();
       const email = document.getElementById('emailInput').value.trim();
+
+      if (!name) {
+        alert('Please enter your full name.');
+        return;
+      }
+      if (!phone) {
+        alert('Please enter your mobile phone number.');
+        return;
+      }
       if (!email || !email.includes('@')) {
         alert('Please enter a valid email address.');
         return;
@@ -451,13 +585,13 @@
           passcode: generatedCode,
           code: generatedCode
         }).then(() => {
-          alert(`Verification code sent to ${email}! Check your inbox.`);
+          alert(`Verification code sent to ${email}! Check your inbox (and spam folder).`);
         }).catch(err => {
           console.error("EmailJS Error:", err);
-          alert(`Error sending email. Your verification code is: ${generatedCode}`);
+          alert(`Email service busy. Please use this instant verification code: ${generatedCode}`);
         });
       } else {
-        alert(`[Demo Mode] Verification Code for ${email} is: ${generatedCode}`);
+        alert(`Your instant verification code for ${email} is: ${generatedCode}`);
       }
 
       document.getElementById('codeSection').classList.remove('hidden');
@@ -466,11 +600,11 @@
 
     function verifyCode() {
       const input = document.getElementById('codeInput').value.trim();
-      if (input === generatedCode && generatedCode !== "") {
-        alert('Email verified successfully!');
-        goToStep(2);
+      if (input === generatedCode && generatedCode !== null) {
+        emailVerified = true;
+        goToStep(6);
       } else {
-        alert('Invalid code. Please enter the 6-digit code provided.');
+        alert('Invalid code. Please enter the 6-digit confirmation code.');
       }
     }
 
@@ -480,10 +614,14 @@
       document.getElementById('btnSnowMain').className = srv === 'snow' ? "border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-4 rounded-xl cursor-pointer";
       document.getElementById('btnFallMain').className = srv === 'fall' ? "border-2 border-sky-600 bg-sky-50/70 p-4 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-4 rounded-xl cursor-pointer";
       
+      document.getElementById('badgeSnow').innerText = srv === 'snow' ? 'Selected' : 'Monthly / Single';
+      document.getElementById('badgeSnow').className = srv === 'snow' ? 'text-xs font-bold text-sky-600' : 'text-xs text-slate-400';
+      document.getElementById('badgeFall').innerText = srv === 'fall' ? 'Selected' : 'One-Time';
+      document.getElementById('badgeFall').className = srv === 'fall' ? 'text-xs font-bold text-sky-600' : 'text-xs text-slate-400';
+
       document.getElementById('snowSubOptions').style.display = srv === 'snow' ? 'block' : 'none';
       document.getElementById('fallSubOptions').style.display = srv === 'fall' ? 'block' : 'none';
 
-      // Toggle Step 4 Property Questions based on Service
       document.getElementById('snowPropDetails').style.display = srv === 'snow' ? 'block' : 'none';
       document.getElementById('fallPropDetails').style.display = srv === 'fall' ? 'block' : 'none';
 
@@ -495,6 +633,12 @@
       document.getElementById('optMonthly').className = type === 'monthly' ? "border-2 border-sky-600 bg-sky-50/70 p-3.5 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-3.5 rounded-xl cursor-pointer";
       document.getElementById('optOnDemand').className = type === 'ondemand' ? "border-2 border-sky-600 bg-sky-50/70 p-3.5 rounded-xl cursor-pointer" : "border-2 border-slate-200 p-3.5 rounded-xl cursor-pointer";
       document.getElementById('plansSection').style.display = type === 'monthly' ? 'block' : 'none';
+
+      const suffix = type === 'monthly' ? '/mo' : '/visit';
+      document.getElementById('lblCorner').innerText = `Corner City Sidewalk (+$30${suffix})`;
+      document.getElementById('lblSide').innerText = `Side Path (+$15${suffix})`;
+      document.getElementById('lblDeck').innerText = `Deck / Patio (+$25${suffix})`;
+
       calcTotal();
     }
 
@@ -509,6 +653,7 @@
     }
 
     function setFallTier(tier, price) {
+      fallTier = tier;
       fallTierPrice = price;
       ['small', 'medium', 'large'].forEach(t => {
         document.getElementById(`fall${t.charAt(0).toUpperCase() + t.slice(1)}`).className = "border-2 border-slate-200 p-3 rounded-xl cursor-pointer flex justify-between items-center";
@@ -550,9 +695,13 @@
 
       if (mainService === 'fall') {
         total = fallTierPrice;
-        cycle = ' total';
+        cycle = ' one-time';
       } else if (snowType === 'ondemand') {
-        total = 65 + ((carCount - 1) * 10);
+        total = 65 + ((carCount > 2 ? carCount - 2 : 0) * 15);
+        if (document.getElementById('chkCorner').checked) total += 30;
+        if (document.getElementById('chkSide').checked) total += 15;
+        if (document.getElementById('chkDeck').checked) total += 25;
+        if (iceMeltAdded) total += 20;
         cycle = ' / visit';
       } else {
         total = planBasePrice;
@@ -567,22 +716,76 @@
       document.getElementById('displayCycle').innerText = cycle;
     }
 
-    function finalizeBooking() {
-      const email = document.getElementById('emailInput').value;
-      const name = document.getElementById('fullName').value || "Client";
-      const total = document.getElementById('displayTotal').innerText;
+    // LEGAL MODAL & CHECKBOX HANDLERS
+    function openLegalModal() {
+      document.getElementById('legalModal').classList.remove('hidden');
+    }
 
-      document.getElementById('confTotal').innerText = total + " " + document.getElementById('displayCycle').innerText;
-      document.getElementById('confPayInstructions').innerText = paymentMethod === 'etransfer' ? "e-Transfer to frostlinesnowservices@gmail.com" : "Invoice / Secure payment link will be sent to your email after review.";
+    function closeLegalModal() {
+      document.getElementById('legalModal').classList.add('hidden');
+    }
+
+    function acceptAndCloseModal() {
+      document.getElementById('chkLegalAgree').checked = true;
+      toggleSubmitBtn();
+      closeLegalModal();
+    }
+
+    function toggleSubmitBtn() {
+      const agreed = document.getElementById('chkLegalAgree').checked;
+      const btn = document.getElementById('btnSubmitOrder');
+      if (agreed) {
+        btn.disabled = false;
+        btn.className = "w-2/3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-md cursor-pointer";
+      } else {
+        btn.disabled = true;
+        btn.className = "w-2/3 bg-slate-300 text-slate-500 cursor-not-allowed font-bold py-3.5 rounded-xl text-xs transition shadow-sm";
+      }
+    }
+
+    function finalizeBooking() {
+      if (!document.getElementById('chkLegalAgree').checked) {
+        alert("Please review and agree to the Service Agreement, Liability Waiver & Privacy Policy before submitting.");
+        return;
+      }
+
+      const email = document.getElementById('emailInput').value.trim();
+      const name = document.getElementById('fullName').value.trim() || "Client";
+      const phone = document.getElementById('mobileNumber').value.trim();
+      const address = document.getElementById('addressInput').value.trim();
+      const notes = document.getElementById('orderNotes').value.trim() || "None";
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      const total = document.getElementById('displayTotal').innerText + " " + document.getElementById('displayCycle').innerText;
+
+      // Build detailed summary for owner email
+      let serviceDetails = "";
+      if (mainService === 'snow') {
+        const extras = [];
+        if (document.getElementById('chkCorner').checked) extras.push("Corner Sidewalk");
+        if (document.getElementById('chkSide').checked) extras.push("Side Path");
+        if (document.getElementById('chkDeck').checked) extras.push("Deck/Patio");
+        if (iceMeltAdded) extras.push("Ice Melt");
+        serviceDetails = `Snow Service (${snowType === 'monthly' ? 'Monthly - ' + planTier.toUpperCase() : 'On-Demand Visit'}) | Driveway: ${carCount} cars | Extras: ${extras.join(', ') || 'None'}`;
+      } else {
+        const gate = document.getElementById('gateWidth').value;
+        serviceDetails = `Fall Leaf Cleanup (${fallTier.toUpperCase()} package) | Mature Trees: ${fallTrees ? 'Yes' : 'No'} | Gate: ${gate}`;
+      }
+
+      document.getElementById('confAddress').innerText = address;
+      document.getElementById('confTotal').innerText = total;
+      document.getElementById('confPayInstructions').innerText = paymentMethod === 'etransfer' 
+        ? "Send Interac e-Transfer to frostlinesnowservices@gmail.com (Include your street address in message)" 
+        : "Invoice / Secure payment link will be sent to your email shortly.";
 
       if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
           to_email: "frostlinesnowservices@gmail.com",
-          message: `NEW BOOKING REQUEST!\nClient: ${name}\nEmail: ${email}\nTotal: ${total}\nPayment Method: ${paymentMethod}`
+          message: `NEW FROSTLINE BOOKING!\n\nClient: ${name}\nPhone: ${phone}\nEmail: ${email}\nAddress: ${address}\n\nService: ${serviceDetails}\nTotal Quoted: ${total}\nPayment Method: ${paymentMethod.toUpperCase()}\nStart Date: ${startDate}\nEnd Date: ${endDate}\nNotes: ${notes}\nLegal Waiver: AGREED & TIMESTAMPED (${new Date().toLocaleString()})`
         });
       }
 
-      goToStep(9);
+      goToStep(7);
     }
   </script>
 </body>
